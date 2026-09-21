@@ -1,0 +1,201 @@
+[2026-08-05 20:51:19] ======================================================================
+[2026-08-05 20:51:19] ANÁLISIS - SHAP, FACTORES ECONÓMICOS, EXPLICABILIDAD
+[2026-08-05 20:51:19] Fecha: 2026-08-05 20:51:19
+[2026-08-05 20:51:19] ======================================================================
+[2026-08-05 20:51:19] 
+1. CARGANDO DATOS...
+[2026-08-05 20:51:19] ✓ Train: 8217 registros
+[2026-08-05 20:51:19] ✓ Test: 1755 registros
+[2026-08-05 20:51:19] ✓ Predicciones: 1476 registros
+[2026-08-05 20:51:19] 
+2. FEATURE IMPORTANCE (XGBoost real)...
+[2026-08-05 20:51:19] 
+Top 5 Features (XGBoost feature_importances_, normalizado a 100%):
+[2026-08-05 20:51:19]   CPIAUCSL: 8.67%
+[2026-08-05 20:51:19]   DCOILWTICO: 7.63%
+[2026-08-05 20:51:19]   FEDFUNDS: 7.58%
+[2026-08-05 20:51:19]   VIXCLS: 7.23%
+[2026-08-05 20:51:19]   DHHNGSP: 7.01%
+[2026-08-05 20:51:19] 
+✓ feature_importance.csv
+[2026-08-05 20:51:19] 
+3. ANÁLISIS DE ERRORES...
+[2026-08-05 20:51:19] 
+       Metric      LSTM   XGBoost  Ensemble
+0  Mean Error  0.042121  0.042220  0.042113
+1   Std Error  0.036538  0.036666  0.036546
+2   Max Error  0.222814  0.225754  0.222410
+3   Min Error  0.000041  0.000027  0.000047
+4          Q1  0.015468  0.015765  0.015682
+5      Median  0.032265  0.032276  0.032116
+6          Q3  0.058342  0.059490  0.058346
+[2026-08-05 20:51:19] 
+✓ error_analysis.csv
+[2026-08-05 20:51:19] 
+4. FACTORES ECONÓMICOS (correlaciones reales)...
+[2026-08-05 20:51:19] 
+Correlaciones reales (retorno diario promedio del sector vs. cambio diario del factor):
+[2026-08-05 20:51:19] 
+                   Factor  Impact_on_Tech  Impact_on_Energy
+0  Oil Price (DCOILWTICO)          -0.042             0.841
+1               VIX Index          -0.819             0.058
+2            Unemployment          -0.008            -0.020
+3                Fed Rate           0.004             0.034
+4                 S&P 500          -0.011             0.050
+[2026-08-05 20:51:19] 
+✓ economic_impact.csv
+[2026-08-05 20:51:19] 
+5. EXPLICABILIDAD (SHAP real, TreeExplainer sobre XGBoost)...
+[2026-08-05 20:51:19] 
+SHAP Values reales (Top 5, |SHAP| medio sobre el test set):
+[2026-08-05 20:51:19]   UNRATE: 0.0024 (std=0.0031)
+[2026-08-05 20:51:19]   VIXCLS: 0.0015 (std=0.0015)
+[2026-08-05 20:51:19]   Vol_20: 0.0015 (std=0.0023)
+[2026-08-05 20:51:19]   CPIAUCSL: 0.0012 (std=0.0015)
+[2026-08-05 20:51:19]   Volume_Lag1: 0.0010 (std=0.0016)
+[2026-08-05 20:51:19] 
+✓ shap_analysis.csv
+[2026-08-05 20:51:19] 
+✓ Correlación Close_Lag1 (valor de feature) vs. su SHAP value: -0.2171
+[2026-08-05 20:51:19] 
+6. GENERANDO REPORTE...
+[2026-08-05 20:51:19] 
+✓ ANALYSIS_REPORT.md
+[2026-08-05 20:51:19] 
+======================================================================
+[2026-08-05 20:51:19] ✓ ANÁLISIS COMPLETADO
+[2026-08-05 20:51:19] ======================================================================
+[2026-08-05 21:45:30] ======================================================================
+[2026-08-05 21:45:30] ANÁLISIS - SHAP, FACTORES ECONÓMICOS, EXPLICABILIDAD
+[2026-08-05 21:45:30] Fecha: 2026-08-05 21:45:30
+[2026-08-05 21:45:30] ======================================================================
+[2026-08-05 21:45:30] 
+1. CARGANDO DATOS...
+[2026-08-05 21:45:30] ✓ Train: 8217 registros
+[2026-08-05 21:45:30] ✓ Test: 1755 registros
+[2026-08-05 21:45:30] ✓ Predicciones: 1476 registros
+[2026-08-05 21:45:30] 
+2. FEATURE IMPORTANCE (XGBoost real)...
+[2026-08-05 21:45:30] 
+Top 5 Features (XGBoost feature_importances_, normalizado a 100%):
+[2026-08-05 21:45:30]   CPIAUCSL: 8.67%
+[2026-08-05 21:45:30]   DCOILWTICO: 7.63%
+[2026-08-05 21:45:30]   FEDFUNDS: 7.58%
+[2026-08-05 21:45:30]   VIXCLS: 7.23%
+[2026-08-05 21:45:30]   DHHNGSP: 7.01%
+[2026-08-05 21:45:30] 
+✓ feature_importance.csv
+[2026-08-05 21:45:30] 
+3. ANÁLISIS DE ERRORES...
+[2026-08-05 21:45:30] 
+       Metric      LSTM   XGBoost  Ensemble
+0  Mean Error  0.042367  0.042220  0.042298
+1   Std Error  0.036523  0.036666  0.036660
+2   Max Error  0.213986  0.225754  0.218619
+3   Min Error  0.000055  0.000027  0.000027
+4          Q1  0.015738  0.015765  0.015538
+5      Median  0.032348  0.032276  0.032720
+6          Q3  0.059442  0.059490  0.059229
+[2026-08-05 21:45:30] 
+✓ error_analysis.csv
+[2026-08-05 21:45:30] 
+4. FACTORES ECONÓMICOS (correlaciones reales)...
+[2026-08-05 21:45:30] 
+Correlaciones reales (retorno diario promedio del sector vs. cambio diario del factor):
+[2026-08-05 21:45:30] 
+                   Factor  Impact_on_Tech  Impact_on_Energy
+0  Oil Price (DCOILWTICO)          -0.042             0.841
+1               VIX Index          -0.819             0.058
+2            Unemployment          -0.008            -0.020
+3                Fed Rate           0.004             0.034
+4                 S&P 500          -0.011             0.050
+[2026-08-05 21:45:30] 
+✓ economic_impact.csv
+[2026-08-05 21:45:30] 
+5. EXPLICABILIDAD (SHAP real, TreeExplainer sobre XGBoost)...
+[2026-08-05 21:45:30] 
+SHAP Values reales (Top 5, |SHAP| medio sobre el test set):
+[2026-08-05 21:45:30]   UNRATE: 0.0024 (std=0.0031)
+[2026-08-05 21:45:30]   VIXCLS: 0.0015 (std=0.0015)
+[2026-08-05 21:45:30]   Vol_20: 0.0015 (std=0.0023)
+[2026-08-05 21:45:30]   CPIAUCSL: 0.0012 (std=0.0015)
+[2026-08-05 21:45:30]   Volume_Lag1: 0.0010 (std=0.0016)
+[2026-08-05 21:45:30] 
+✓ shap_analysis.csv
+[2026-08-05 21:45:30] 
+✓ Correlación Close_Lag1 (valor de feature) vs. su SHAP value: -0.2171
+[2026-08-05 21:45:30] 
+6. GENERANDO REPORTE...
+[2026-08-05 21:45:30] 
+✓ ANALYSIS_REPORT.md
+[2026-08-05 21:45:30] 
+======================================================================
+[2026-08-05 21:45:30] ✓ ANÁLISIS COMPLETADO
+[2026-08-05 21:45:30] ======================================================================
+[2026-08-05 21:46:36] ======================================================================
+[2026-08-05 21:46:36] ANÁLISIS - SHAP, FACTORES ECONÓMICOS, EXPLICABILIDAD
+[2026-08-05 21:46:36] Fecha: 2026-08-05 21:46:36
+[2026-08-05 21:46:36] ======================================================================
+[2026-08-05 21:46:36] 
+1. CARGANDO DATOS...
+[2026-08-05 21:46:36] ✓ Train: 8217 registros
+[2026-08-05 21:46:36] ✓ Test: 1755 registros
+[2026-08-05 21:46:36] ✓ Predicciones: 1476 registros
+[2026-08-05 21:46:36] 
+2. FEATURE IMPORTANCE (XGBoost real)...
+[2026-08-05 21:46:36] 
+Top 5 Features (XGBoost feature_importances_, normalizado a 100%):
+[2026-08-05 21:46:36]   CPIAUCSL: 8.67%
+[2026-08-05 21:46:36]   DCOILWTICO: 7.63%
+[2026-08-05 21:46:36]   FEDFUNDS: 7.58%
+[2026-08-05 21:46:36]   VIXCLS: 7.23%
+[2026-08-05 21:46:36]   DHHNGSP: 7.01%
+[2026-08-05 21:46:36] 
+✓ feature_importance.csv
+[2026-08-05 21:46:36] 
+3. ANÁLISIS DE ERRORES...
+[2026-08-05 21:46:36] 
+       Metric      LSTM  Transformer   XGBoost  Ensemble
+0  Mean Error  0.042367     0.043110  0.042220  0.042298
+1   Std Error  0.036523     0.036950  0.036666  0.036660
+2   Max Error  0.213986     0.221603  0.225754  0.218619
+3   Min Error  0.000055     0.000013  0.000027  0.000027
+4          Q1  0.015738     0.016487  0.015765  0.015538
+5      Median  0.032348     0.033071  0.032276  0.032720
+6          Q3  0.059442     0.060053  0.059490  0.059229
+[2026-08-05 21:46:36] 
+✓ error_analysis.csv
+[2026-08-05 21:46:36] 
+4. FACTORES ECONÓMICOS (correlaciones reales)...
+[2026-08-05 21:46:36] 
+Correlaciones reales (retorno diario promedio del sector vs. cambio diario del factor):
+[2026-08-05 21:46:36] 
+                   Factor  Impact_on_Tech  Impact_on_Energy
+0  Oil Price (DCOILWTICO)          -0.042             0.841
+1               VIX Index          -0.819             0.058
+2            Unemployment          -0.008            -0.020
+3                Fed Rate           0.004             0.034
+4                 S&P 500          -0.011             0.050
+[2026-08-05 21:46:36] 
+✓ economic_impact.csv
+[2026-08-05 21:46:36] 
+5. EXPLICABILIDAD (SHAP real, TreeExplainer sobre XGBoost)...
+[2026-08-05 21:46:36] 
+SHAP Values reales (Top 5, |SHAP| medio sobre el test set):
+[2026-08-05 21:46:36]   UNRATE: 0.0024 (std=0.0031)
+[2026-08-05 21:46:36]   VIXCLS: 0.0015 (std=0.0015)
+[2026-08-05 21:46:36]   Vol_20: 0.0015 (std=0.0023)
+[2026-08-05 21:46:36]   CPIAUCSL: 0.0012 (std=0.0015)
+[2026-08-05 21:46:36]   Volume_Lag1: 0.0010 (std=0.0016)
+[2026-08-05 21:46:36] 
+✓ shap_analysis.csv
+[2026-08-05 21:46:36] 
+✓ Correlación Close_Lag1 (valor de feature) vs. su SHAP value: -0.2171
+[2026-08-05 21:46:36] 
+6. GENERANDO REPORTE...
+[2026-08-05 21:46:36] 
+✓ ANALYSIS_REPORT.md
+[2026-08-05 21:46:36] 
+======================================================================
+[2026-08-05 21:46:36] ✓ ANÁLISIS COMPLETADO
+[2026-08-05 21:46:36] ======================================================================

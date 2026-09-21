@@ -1,0 +1,5 @@
+Model,MAE,RMSE,R2,Directional_Accuracy
+LSTM,0.0424,0.0559,-0.0059,0.4892
+Transformer,0.0431,0.0568,-0.0364,0.4885
+XGBoost,0.0422,0.0559,-0.0052,0.4953
+Ensemble,0.0423,0.056,-0.0072,0.4986

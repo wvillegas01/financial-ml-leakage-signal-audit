@@ -1,0 +1,50 @@
+[2026-08-04 18:32:14] ======================================================================
+[2026-08-04 18:32:14] INICIO DE DESCARGA DE DATOS
+[2026-08-04 18:32:14] Fecha/Hora: 2026-08-04 18:32:14
+[2026-08-04 18:32:14] Período: 2021-08-05 a 2026-08-04
+[2026-08-04 18:32:14] ======================================================================
+[2026-08-04 18:32:14] 
+=== Descargando SECTOR TECNOLOGÍA de Yahoo Finance ===
+[2026-08-04 18:32:14]   Descargando AAPL...
+[2026-08-04 18:34:42]   ✓ AAPL: 0 registros
+[2026-08-04 18:34:42]   Descargando MSFT...
+[2026-08-04 18:36:06]   ✓ MSFT: 0 registros
+[2026-08-04 18:36:06]   Descargando NVDA...
+[2026-08-04 18:37:29]   ✓ NVDA: 0 registros
+[2026-08-04 18:37:29]   Descargando GOOGL...
+[2026-08-04 18:38:30]   ✓ GOOGL: 0 registros
+[2026-08-04 18:38:30]   Descargando TSLA...
+[2026-08-04 18:39:32]   ✓ TSLA: 0 registros
+[2026-08-04 18:39:32] ✓ Guardado: tech_prices_raw.csv (0 registros)
+[2026-08-04 18:39:32] 
+=== Descargando SECTOR ENERGÍA de Yahoo Finance ===
+[2026-08-04 18:39:32]   Descargando CVX...
+[2026-08-04 18:41:15]   ✓ CVX: 0 registros
+[2026-08-04 18:41:15]   Descargando COP...
+[2026-08-04 18:42:39]   ✓ COP: 0 registros
+[2026-08-04 18:42:39]   Descargando XLE...
+[2026-08-04 18:44:02]   ✓ XLE: 0 registros
+[2026-08-04 18:44:02]   Descargando MPC...
+[2026-08-04 18:45:46]   ✓ MPC: 0 registros
+[2026-08-04 18:45:46] ✓ Guardado: energy_prices_raw.csv (0 registros)
+[2026-08-04 18:45:46] 
+=== Descargando datos económicos de FRED ===
+[2026-08-04 18:45:46] API Key: NO CONFIGURADA
+[2026-08-04 18:45:46] ⚠ FRED API Key no encontrada. Saltando FRED.
+[2026-08-04 18:45:46]   Para descargar, obtén key gratis en: https://fred.stlouisfed.org/docs/api/api_key.html
+[2026-08-04 18:45:46] ⚠ No hay datos FRED para guardar
+[2026-08-04 18:45:46] 
+======================================================================
+[2026-08-04 18:45:46] 
+✓ Resumen guardado: download_summary.json
+[2026-08-04 18:45:46] ======================================================================
+[2026-08-04 18:45:46] ✓ DESCARGA COMPLETADA
+[2026-08-04 18:45:46] ======================================================================
+[2026-08-04 18:45:46] 
+Archivos generados:
+[2026-08-04 18:45:46]   1. tech_prices_raw.csv (5 tickers)
+[2026-08-04 18:45:46]   2. energy_prices_raw.csv (4 tickers)
+[2026-08-04 18:45:46]   4. download_log.txt (este log)
+[2026-08-04 18:45:46]   5. download_summary.json (resumen ejecutivo)
+[2026-08-04 18:45:46] 
+Próximo paso: EDA en 03_EDA_Exploratorio/

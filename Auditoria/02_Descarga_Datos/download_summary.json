@@ -1,0 +1,46 @@
+{
+  "timestamp": "2026-08-04T18:45:46.031162",
+  "period": {
+    "start": "2021-08-05",
+    "end": "2026-08-04",
+    "days": 1825
+  },
+  "yahoo_finance": {
+    "tech": {
+      "tickers": [
+        "AAPL",
+        "MSFT",
+        "NVDA",
+        "GOOGL",
+        "TSLA"
+      ],
+      "total_records": 0
+    },
+    "energy": {
+      "tickers": [
+        "CVX",
+        "COP",
+        "XLE",
+        "MPC"
+      ],
+      "total_records": 0
+    }
+  },
+  "fred": {
+    "series_downloaded": [
+      "DCOILWTICO",
+      "DHHNGSP",
+      "VIXCLS",
+      "UNRATE",
+      "CPIAUCSL",
+      "FEDFUNDS",
+      "SP500"
+    ],
+    "total_records": 0
+  },
+  "files_created": [
+    "tech_prices_raw.csv",
+    "energy_prices_raw.csv",
+    "fred_economic_raw.csv (si FRED disponible)"
+  ]
+}

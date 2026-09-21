@@ -1,0 +1,24 @@
+\begin{table}[h]
+	\caption{Main leakage-free XGBoost SHAP ranking computed on the complete-case tabular test sample (\(N=1{,}746\)) using the original 18 predictors.}
+	\label{tab:main_xgb_shap}
+	\setlength{\tabcolsep}{4pt}
+	\centering
+	\begin{tabular}{p{35pt}p{125pt}p{95pt}p{105pt}}
+		\hline
+		\textbf{Rank} & \textbf{Predictor} & \textbf{Mean \(|\mathrm{SHAP}|\)} & \textbf{Normalized SHAP importance} \\
+		\hline
+		1 & UNRATE & 0.002379 & 20.79\% \\
+		2 & VIXCLS & 0.001487 & 13.00\% \\
+		3 & Vol\_20 & 0.001478 & 12.91\% \\
+		4 & CPIAUCSL & 0.001243 & 10.86\% \\
+		5 & Volume\_Lag1 & 0.001034 & 9.03\% \\
+		6 & Return\_Lag5 & 0.000704 & 6.15\% \\
+		7 & SP500 & 0.000624 & 5.45\% \\
+		8 & Return\_Lag1 & 0.000561 & 4.90\% \\
+		9 & Close\_Lag5 & 0.000393 & 3.44\% \\
+		10 & FEDFUNDS & 0.000306 & 2.68\% \\
+		11--18 & Remaining eight predictors & 0.001235 & 10.79\% \\
+		\hline
+	\end{tabular}
+	\footnotesize
+\end{table}

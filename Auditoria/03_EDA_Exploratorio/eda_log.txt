@@ -1,0 +1,43 @@
+[2026-08-05 18:50:11] ======================================================================
+[2026-08-05 18:50:11] ANÁLISIS EXPLORATORIO DE DATOS (EDA)
+[2026-08-05 18:50:11] Fecha/Hora: 2026-08-05 18:50:11
+[2026-08-05 18:50:11] ======================================================================
+[2026-08-05 18:50:11] Cargando datos...
+[2026-08-05 18:50:11] ✓ Tech: 6520 registros
+[2026-08-05 18:50:11] ✓ Energy: 5216 registros
+[2026-08-05 18:50:11] ✓ FRED: 1304 registros
+[2026-08-05 18:50:11] 
+Calculando estadísticas descriptivas...
+[2026-08-05 18:50:11] ✓ Tech volatilidad anualizada: 0.5625
+[2026-08-05 18:50:11] ✓ Energy volatilidad anualizada: 0.5852
+[2026-08-05 18:50:11] 
+=== GENERANDO VISUALIZACIONES ===
+[2026-08-05 18:50:11] 
+Generando: Precios normalizados...
+[2026-08-05 18:50:11] ✓ Guardado: 01_precios_normalizados.png
+[2026-08-05 18:50:11] Generando: Volatilidad comparativa...
+[2026-08-05 18:50:12] ✓ Guardado: 02_volatilidad_comparativa.png
+[2026-08-05 18:50:12] Generando: Distribución de retornos...
+[2026-08-05 18:50:13] ✓ Guardado: 03_distribucion_retornos.png
+[2026-08-05 18:50:13] Generando: Volatilidad por ticker...
+[2026-08-05 18:50:13] ✓ Guardado: 04_volatilidad_por_ticker.png
+[2026-08-05 18:50:13] Generando: Correlación con factores económicos...
+[2026-08-05 18:50:14] ✓ Guardado: 05_correlacion_fred.png
+[2026-08-05 18:50:14] 
+Generando reporte EDA...
+[2026-08-05 18:50:14] ✓ Guardado: EDA_REPORT.md
+[2026-08-05 18:50:14] 
+======================================================================
+[2026-08-05 18:50:14] ✓ EDA COMPLETADO
+[2026-08-05 18:50:14] ======================================================================
+[2026-08-05 18:50:14] 
+Archivos generados:
+[2026-08-05 18:50:14]   1. 01_precios_normalizados.png
+[2026-08-05 18:50:14]   2. 02_volatilidad_comparativa.png
+[2026-08-05 18:50:14]   3. 03_distribucion_retornos.png
+[2026-08-05 18:50:14]   4. 04_volatilidad_por_ticker.png
+[2026-08-05 18:50:14]   5. 05_correlacion_fred.png
+[2026-08-05 18:50:14]   6. EDA_REPORT.md
+[2026-08-05 18:50:14]   7. eda_log.txt
+[2026-08-05 18:50:14] 
+Próximo paso: Preprocessing en 04_Preprocessing/

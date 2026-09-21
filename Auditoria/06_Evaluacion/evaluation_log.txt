@@ -1,0 +1,77 @@
+[2026-08-05 20:51:14] ======================================================================
+[2026-08-05 20:51:14] EVALUACIÓN - ANÁLISIS POR SECTOR
+[2026-08-05 20:51:14] Fecha: 2026-08-05 20:51:14
+[2026-08-05 20:51:14] ======================================================================
+[2026-08-05 20:51:14] 
+1. CARGANDO RESULTADOS...
+[2026-08-05 20:51:14] ✓ Métricas: 4 modelos
+[2026-08-05 20:51:14] ✓ Predicciones: 1476 registros
+[2026-08-05 20:51:14] ✓ Test set: 1755 registros
+[2026-08-05 20:51:14] 
+2. ANALIZANDO POR SECTOR...
+[2026-08-05 20:51:14] ✓ Tech: 975 registros
+[2026-08-05 20:51:14] ✓ Energy: 780 registros
+[2026-08-05 20:51:14] 
+3. RESULTADOS GLOBALES:
+[2026-08-05 20:51:14] 
+         Model     MAE    RMSE      R2  Directional_Accuracy
+0         LSTM  0.0421  0.0558  0.0005                0.5041
+1  Transformer  0.0421  0.0558  0.0004                0.5014
+2      XGBoost  0.0396  0.0532 -0.0055                0.4948
+3     Ensemble  0.0421  0.0558  0.0005                0.4749
+[2026-08-05 20:51:14] 
+4. ANÁLISIS POR SECTOR:
+[2026-08-05 20:51:14] 
+TECNOLOGÍA:
+[2026-08-05 20:51:14]   LSTM: MAE=0.04, RMSE=0.06, Dir=0.0597
+[2026-08-05 20:51:14]   XGBoost: MAE=0.04, RMSE=0.06, Dir=0.3871
+[2026-08-05 20:51:14]   Ensemble: MAE=0.04, RMSE=0.06, Dir=0.4888
+[2026-08-05 20:51:14] 
+ENERGÍA:
+[2026-08-05 20:51:14]   LSTM: MAE=0.04, RMSE=0.06, Dir=0.0597
+[2026-08-05 20:51:14]   XGBoost: MAE=0.04, RMSE=0.06, Dir=0.3871
+[2026-08-05 20:51:14]   Ensemble: MAE=0.04, RMSE=0.06, Dir=0.4888
+[2026-08-05 20:51:14] 
+5. GENERANDO REPORTE...
+[2026-08-05 20:51:14] ✓ EVALUATION_REPORT.md
+[2026-08-05 20:51:14] ✓ sector_comparison.csv
+[2026-08-05 20:51:14] 
+======================================================================
+[2026-08-05 20:51:14] ✓ EVALUACIÓN COMPLETADA
+[2026-08-05 20:51:14] ======================================================================
+[2026-08-05 21:45:17] ======================================================================
+[2026-08-05 21:45:17] EVALUACIÓN - ANÁLISIS POR SECTOR Y PRUEBAS ESTADÍSTICAS
+[2026-08-05 21:45:17] Fecha: 2026-08-05 21:45:17
+[2026-08-05 21:45:17] ======================================================================
+[2026-08-05 21:45:17] 
+1. CARGANDO RESULTADOS...
+[2026-08-05 21:45:17] ✓ Métricas: 4 modelos
+[2026-08-05 21:45:17] ✓ Predicciones: 1476 registros
+[2026-08-05 21:45:17] ✓ Sectores presentes: ['Tecnología', 'Energía']
+[2026-08-05 21:45:17] 
+2. PRUEBA BINOMIAL: ¿la precisión direccional es distinguible del azar y de la línea base de clase mayoritaria?
+[2026-08-05 21:45:17]   LSTM: DirAcc=0.4892 (IC95%=[0.4637, 0.5147]), baseline mayoritaria=0.5014, p(vs azar)=0.4197, p(vs mayoría)=0.3489
+[2026-08-05 21:45:17]   Transformer: DirAcc=0.4885 (IC95%=[0.4630, 0.5140]), baseline mayoritaria=0.5014, p(vs azar)=0.3904, p(vs mayoría)=0.3228
+[2026-08-05 21:45:17]   XGBoost: DirAcc=0.4953 (IC95%=[0.4698, 0.5207]), baseline mayoritaria=0.5014, p(vs azar)=0.7351, p(vs mayoría)=0.6395
+[2026-08-05 21:45:17]   Ensemble: DirAcc=0.4986 (IC95%=[0.4732, 0.5241]), baseline mayoritaria=0.5014, p(vs azar)=0.9378, p(vs mayoría)=0.8351
+[2026-08-05 21:45:17] 
+✓ directional_significance_tests.csv
+[2026-08-05 21:45:17] 
+3. ANÁLISIS POR SECTOR (métricas reales, no promedios repetidos)...
+[2026-08-05 21:45:17]   Tecnología / LSTM: N=820, MAE=0.0475, RMSE=0.0632, R2=0.0035, DirAcc=0.5122
+[2026-08-05 21:45:17]   Tecnología / Transformer: N=820, MAE=0.0489, RMSE=0.0647, R2=-0.0442, DirAcc=0.4951
+[2026-08-05 21:45:17]   Tecnología / XGBoost: N=820, MAE=0.0478, RMSE=0.0637, R2=-0.0106, DirAcc=0.4854
+[2026-08-05 21:45:17]   Tecnología / Ensemble: N=820, MAE=0.0476, RMSE=0.0635, R2=-0.0052, DirAcc=0.5146
+[2026-08-05 21:45:17]   Energía / LSTM: N=656, MAE=0.0359, RMSE=0.0452, R2=-0.0299, DirAcc=0.4604
+[2026-08-05 21:45:17]   Energía / Transformer: N=656, MAE=0.0358, RMSE=0.0449, R2=-0.0171, DirAcc=0.4802
+[2026-08-05 21:45:17]   Energía / XGBoost: N=656, MAE=0.0352, RMSE=0.0444, R2=0.0079, DirAcc=0.5076
+[2026-08-05 21:45:17]   Energía / Ensemble: N=656, MAE=0.0357, RMSE=0.0448, R2=-0.0127, DirAcc=0.4787
+[2026-08-05 21:45:17] 
+✓ sector_comparison.csv
+[2026-08-05 21:45:17] 
+4. GENERANDO REPORTE...
+[2026-08-05 21:45:17] ✓ EVALUATION_REPORT.md
+[2026-08-05 21:45:17] 
+======================================================================
+[2026-08-05 21:45:17] ✓ EVALUACIÓN COMPLETADA
+[2026-08-05 21:45:17] ======================================================================

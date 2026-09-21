@@ -1,0 +1,9 @@
+Sector,Model,N,MAE,RMSE,R2,Directional_Accuracy
+Tecnología,LSTM,820,0.0475,0.0632,0.0035,0.5122
+Tecnología,Transformer,820,0.0489,0.0647,-0.0442,0.4951
+Tecnología,XGBoost,820,0.0478,0.0637,-0.0106,0.4854
+Tecnología,Ensemble,820,0.0476,0.0635,-0.0052,0.5146
+Energía,LSTM,656,0.0359,0.0452,-0.0299,0.4604
+Energía,Transformer,656,0.0358,0.0449,-0.0171,0.4802
+Energía,XGBoost,656,0.0352,0.0444,0.0079,0.5076
+Energía,Ensemble,656,0.0357,0.0448,-0.0127,0.4787

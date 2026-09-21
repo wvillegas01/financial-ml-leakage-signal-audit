@@ -1,0 +1,5 @@
+Model,N,Directional_Accuracy,CI_95_Low,CI_95_High,Majority_Class_Baseline,p_value_vs_chance_0.5,p_value_vs_majority_baseline,Significant_vs_chance_a0.05,Significant_vs_majority_a0.05
+LSTM,1476,0.4892,0.4637,0.5147,0.5014,0.4197,0.3489,False,False
+Transformer,1476,0.4885,0.463,0.514,0.5014,0.3904,0.3228,False,False
+XGBoost,1476,0.4953,0.4698,0.5207,0.5014,0.7351,0.6395,False,False
+Ensemble,1476,0.4986,0.4732,0.5241,0.5014,0.9378,0.8351,False,False

@@ -1,0 +1,21 @@
+Main leakage-free XGBoost SHAP validation report
+train_complete_case_N=7776
+test_complete_case_N=1746
+predictor_count=18
+predictors=['SMA_20', 'SMA_50', 'Vol_20', 'Close_Lag1', 'Close_Lag5', 'Return_Lag1', 'Return_Lag5', 'Open_Lag1', 'High_Lag1', 'Low_Lag1', 'Volume_Lag1', 'DCOILWTICO', 'VIXCLS', 'DHHNGSP', 'UNRATE', 'CPIAUCSL', 'FEDFUNDS', 'SP500']
+X_test_shape=(1746, 18)
+shap_values_shape=(1746, 18)
+explainer_type=TreeExplainer
+model_source=05_Modelado/xgb_model.json
+declared_model_configuration={'n_estimators': 100, 'max_depth': 5, 'learning_rate': 0.1, 'subsample': 0.8, 'colsample_bytree': 0.8, 'objective': 'reg:squarederror', 'random_state': 42, 'early_stopping_rounds': 10}
+target=next-day logarithmic return (Target_Return)
+information_set=predictors available through day t
+predictor_space=original 18 predictors
+signal_injection_predictor_included=False
+VIX_Change_Std_included=False
+xgboost_feature_importances_used=False
+shap_subsampling_used=False
+mean_abs_shap_sum=0.011444317177
+normalized_shap_percent_sum=100.000000000000
+top_predictor=UNRATE
+top_predictor_percent=20.786411

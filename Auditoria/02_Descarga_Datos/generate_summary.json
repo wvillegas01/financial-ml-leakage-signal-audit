@@ -1,0 +1,51 @@
+{
+  "timestamp": "2026-08-05T18:49:40.594182",
+  "type": "SYNTHETIC DATA (Generated for research)",
+  "period": {
+    "start": "2021-08-06",
+    "end": "2026-08-05",
+    "days": 1825,
+    "business_days": 1304
+  },
+  "yahoo_finance": {
+    "tech": {
+      "tickers": [
+        "AAPL",
+        "MSFT",
+        "NVDA",
+        "GOOGL",
+        "TSLA"
+      ],
+      "total_records": 6520,
+      "volatility": 0.025
+    },
+    "energy": {
+      "tickers": [
+        "CVX",
+        "COP",
+        "XLE",
+        "MPC"
+      ],
+      "total_records": 5216,
+      "volatility": 0.028
+    }
+  },
+  "fred": {
+    "series": [
+      "DCOILWTICO",
+      "DHHNGSP",
+      "VIXCLS",
+      "UNRATE",
+      "CPIAUCSL",
+      "FEDFUNDS",
+      "SP500"
+    ],
+    "total_records": 1304
+  },
+  "notes": [
+    "Datos generados sintéticamente con propiedades estadísticas realistas",
+    "Utilizan modelos GARCH para volatilidad estocástica",
+    "Tech sector: volatilidad más alta (2.5%) que Energía (2.8%)",
+    "Mantienen correlaciones y tendencias realistas"
+  ]
+}

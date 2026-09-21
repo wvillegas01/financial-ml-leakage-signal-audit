@@ -1,0 +1,23 @@
+{
+  "title": "Financial ML Leakage and Predictive Signal Audit",
+  "upload_type": "software",
+  "description": "Reproducibility package for the manuscript Auditing Information Leakage and Predictive Signal in Financial Machine Learning: A Controlled Study. The repository contains a controlled synthetic benchmark, preprocessing scripts, model-training scripts, evaluation scripts, SHAP analysis, robustness diagnostics, signal-injection validation, generated datasets, derived outputs, figures, and manuscript materials.",
+  "creators": [
+    {"name": "Ortiz-Garces, Ivan"},
+    {"name": "Mera-Navarrete, Aracely"},
+    {"name": "Sarango-Lalangui, Paul"},
+    {"name": "Beltran-Morales, Jefferson"},
+    {"name": "Villegas-Ch, William"}
+  ],
+  "keywords": [
+    "financial machine learning",
+    "information leakage",
+    "synthetic benchmark",
+    "SHAP",
+    "signal recovery",
+    "XGBoost",
+    "GARCH"
+  ],
+  "license": "cc-by-4.0",
+  "version": "1.0.0"
+}

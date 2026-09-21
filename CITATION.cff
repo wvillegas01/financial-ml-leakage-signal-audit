@@ -1,0 +1,25 @@
+cff-version: 1.2.0
+message: "If you use this repository, please cite the associated manuscript and archived Zenodo record."
+title: "Financial ML Leakage and Predictive Signal Audit"
+authors:
+  - family-names: "Ortiz-Garces"
+    given-names: "Ivan"
+  - family-names: "Mera-Navarrete"
+    given-names: "Aracely"
+  - family-names: "Sarango-Lalangui"
+    given-names: "Paul"
+  - family-names: "Beltran-Morales"
+    given-names: "Jefferson"
+  - family-names: "Villegas-Ch"
+    given-names: "William"
+date-released: "2026-09-21"
+version: "1.0.0"
+repository-code: "https://github.com/wvillegas01/financial-ml-leakage-signal-audit"
+keywords:
+  - financial machine learning
+  - information leakage
+  - synthetic benchmark
+  - SHAP
+  - signal recovery
+  - XGBoost
+license: "CC-BY-4.0"

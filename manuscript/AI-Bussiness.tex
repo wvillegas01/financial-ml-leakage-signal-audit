@@ -1,0 +1,1170 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% This is just an example/guide for you to refer to when submitting manuscripts to Frontiers, it is not mandatory to use Frontiers .cls files nor frontiers.tex  %
+% This will only generate the Manuscript, the final article will be typeset by Frontiers after acceptance.   
+%                                              %
+%                                                                                                                                                         %
+% When submitting your files, remember to upload this *tex file, the pdf generated with it, the *bib file (if bibliography is not within the *tex) and all the figures.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%% Version 3.4 Generated 2022/06/14 %%%
+%%% You will need to have the following packages installed: datetime, fmtcount, etoolbox, fcprefix, which are normally inlcuded in WinEdt. %%%
+%%% In http://www.ctan.org/ you can find the packages and how to install them, if necessary. %%%
+%%%  NB logo1.jpg is required in the path in order to correctly compile front page header %%%
+
+\documentclass[utf8]{FrontiersinHarvard} % for articles in journals using the Harvard Referencing Style (Author-Date), for Frontiers Reference Styles by Journal: https://zendesk.frontiersin.org/hc/en-us/articles/360017860337-Frontiers-Reference-Styles-by-Journal
+%\documentclass[utf8]{FrontiersinVancouver} % for articles in journals using the Vancouver Reference Style (Numbered), for Frontiers Reference Styles by Journal: https://zendesk.frontiersin.org/hc/en-us/articles/360017860337-Frontiers-Reference-Styles-by-Journal
+%\documentclass[utf8]{frontiersinFPHY_FAMS} % Vancouver Reference Style (Numbered) for articles in the journals "Frontiers in Physics" and "Frontiers in Applied Mathematics and Statistics" 
+
+%\setcitestyle{square} % for articles in the journals "Frontiers in Physics" and "Frontiers in Applied Mathematics and Statistics" 
+\usepackage{url,hyperref,lineno,microtype,subcaption}
+\usepackage[onehalfspacing]{setspace}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\newcommand{\rev}[1]{{\color{red}#1}}
+
+\linenumbers
+
+
+% Leave a blank line between paragraphs instead of using \\
+\def\keyFont{\fontsize{8}{11}\helveticabold }
+
+\def\firstAuthorLast{Villegas-Ch {et~al.}} %use et al only if is more than 1 author
+
+\def\Authors{Iván Ortiz-Gárces$^{1}$, Aracely Mera-Navarrete$^{2}$, Paul Sarango-Lalangui$^{3}$, Jefferson Beltrán-Morales$^{4}$ and William Villegas-Ch$^{1*}$}
+
+\def\Address{
+	$^{1}$Escuela de Ingeniería en Ciberseguridad, Facultad de Ingeniería y Ciencias Aplicadas, Universidad de Las Américas (UDLA), Quito, Ecuador\\
+	
+	$^{2}$Escuela de Comunicación, Facultad de Jurisprudencia, Ciencias Sociales y Humanidades Andrés F. Córdova, Universidad Internacional del Ecuador, Quito, Ecuador\\
+	
+	$^{3}$Grupo de Investigación Negocios, Economía, Organizaciones y Sociedad (NEOS), Carrera de Ingeniería Industrial, Facultad de Ingeniería y Ciencias Aplicadas, Universidad de Las Américas (UDLA), Quito 170124, Ecuador\\
+	
+	$^{4}$Facultad de Ingeniería y Ciencias Aplicadas, Universidad Central del Ecuador, Quito, Ecuador
+}
+
+\def\corrAuthor{William Villegas-Ch}
+
+\def\corrEmail{william.villegas@udla.edu.ec}
+
+
+\begin{document}
+\onecolumn
+\firstpage{1}
+
+\title[Information Leakage and Predictive Signal Audit]{Auditing Information Leakage and Predictive Signal in Financial Machine Learning: A Controlled Study} 
+
+\author[\firstAuthorLast ]{\Authors} %This field will be automatically populated
+\address{} %This field will be automatically populated
+\correspondance{} %This field will be automatically populated
+
+\extraAuth{}% If there are more than 1 corresponding author, comment this line and uncomment the next one.
+%\extraAuth{corresponding Author2 \\ Laboratory X2, Institute X2, Department X2, Organization X2, Street X2, City X2 , State XX2 (only USA, Canada and Australia), Zip Code2, X2 Country X2, email2@uni2.edu}
+
+
+\maketitle
+
+\begin{abstract}
+
+\section{}
+\rev{This study audits a financial machine learning pipeline designed to detect information leakage, the absence of predictive structure, and the recovery of a known signal. The evaluation uses a controlled financial benchmark comprising 1,304 business-day dates, nine sector-specific asset series, and seven economic indicators generated through a prespecified GARCH-like conditional-variance process with controlled factor exposures. Three base models, a long short-term memory network (LSTM), a simplified attention model, and XGBoost, together with a fixed-weight ensemble are evaluated after correcting an initial configuration in which contemporaneous predictors were mechanically related to the target. All cross-model comparisons use a common sequential asset-date test subset (\(N=1{,}476\)). Under the leakage-free, null-signal condition, the predictive configurations yield \(R^2\) values between \(-0.0364\) and \(-0.0052\) and directional accuracies between \(48.85\%\) and \(49.86\%\). Moving-block bootstrap intervals for directional accuracy, based on blocks of consecutive test dates while retaining all assets within each sampled date, include both the balanced \(50\%\) reference and the observed majority-class rate for all evaluated models. Explicit sample accounting distinguishes the raw tabular test partition (\(N=1{,}755\) asset-date rows), the complete-case tabular sample used for XGBoost/SHAP analysis (\(N=1{,}746\)), and the sequential subset used for cross-model comparison. A 10-seed neural-network sensitivity analysis confirms that the LSTM and simplified attention results remain centered near null performance. In a separate controlled validation, a linear dependency is introduced between the standardized first difference of the Chicago Board Options Exchange Volatility Index (VIX) at day \(t\) and the target return at day \(t+1\). Across 10 seed-matched repetitions per signal-intensity level, mean \(R^2\) increases from \(-0.0028\) under the negative control to \(0.9031\) at the highest intensity. The normalized SHAP importance of the injected predictor increases monotonically from \(4.08\%\) to \(83.04\%\). The contribution is methodological: the study establishes a traceable procedure for diagnosing leakage, delimiting the scope of inference, and verifying predictive-signal recovery under known data-generating conditions.}
+
+
+\tiny
+\keyFont{\section{Keywords:} Controlled financial benchmark; Financial machine learning; Information leakage audit; Predictive-signal recovery; SHAP; Stock return forecasting; Temporal validation}
+\end{abstract}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduction}
+\label{sec:introduction}
+
+Short-horizon return forecasting is relevant to risk management, portfolio allocation, and algorithmic decision support, but it is also particularly vulnerable to methodological error. In financial time series, apparently strong predictive performance may arise from genuine economic structure, information leakage, temporally misaligned predictors, preprocessing fitted with future observations, or comparisons conducted on different effective samples~\citep{Kaufman2012}. Recent reviews document substantial progress in deep learning for financial forecasting while also showing that reported results depend critically on the prediction target, forecast horizon, feature-availability assumptions, and validation protocol~\citep{Zhang2024review}. The scientific challenge therefore extends beyond training increasingly complex models: it requires determining whether observed performance is supported exclusively by information available at the stated prediction origin.
+
+This concern is especially relevant when recurrent, attention-based, tree-based, and ensemble configurations are compared under a common experimental framework. LSTM-based approaches have shown potential for integrating temporal patterns and textual information~\citep{Usmani2023,John2023}, while attention mechanisms and XGBoost have also been applied to stock-movement and market-forecasting tasks~\citep{Zhang2022transformer,Gao2025xgboost,Shen2025xgboost}. \rev{Here, LSTM denotes long short-term memory, a recurrent neural-network architecture used for sequential data.} However, architectural sophistication does not remove the need to verify temporal availability, target alignment, and effective sample size. Comparisons between machine learning and deep learning are meaningful only when all models address the same target, forecasting horizon, and test observations~\citep{Nikou2019,Shobayo2025}. Otherwise, differences attributed to model capability may instead reflect differences in experimental construction.
+
+Explainability provides an additional layer of methodological scrutiny. SHAP decomposes model predictions into feature-level contributions and can reveal the predictors sustaining an observed result~\citep{Lundberg2017shap}. \rev{SHAP refers to SHapley Additive exPlanations, a game-theoretic attribution framework for decomposing model outputs into predictor-level contributions.} Its use in financial applications has expanded because it supports model interpretation and stability analysis~\citep{Wang2025shap,Chan2026financial}. Nevertheless, SHAP does not determine whether a predictor is temporally legitimate, nor does a large attribution establish causality; post hoc explanations can themselves be unstable or misleading if the underlying validation design is flawed~\citep{Slack2020}. That judgment requires jointly examining the explanation, prediction origin, target definition, and data-preparation protocol. In this study, explainability is therefore used as an auditing instrument rather than as a post hoc visualization of an already accepted result.
+
+The evaluation is conducted using a controlled financial benchmark generated through a prespecified GARCH-like conditional-variance process. The benchmark comprises five technology assets (\texttt{TECH-1}--\texttt{TECH-5}), four energy assets (\texttt{ENERGY-1}--\texttt{ENERGY-4}), and seven economic indicators. The data-generating process produces persistent time-varying volatility and asset-specific stochastic trajectories while assigning controlled contemporaneous sector-factor exposures. Technology assets receive a negative exposure to standardized daily percentage changes in VIX, whereas energy assets receive a positive exposure to standardized daily percentage changes in WTI. \rev{VIX denotes the Chicago Board Options Exchange Volatility Index, and WTI denotes West Texas Intermediate crude oil.} Because these relationships are known by construction, the benchmark enables recovered structure to be distinguished from unsupported empirical inference.
+
+The controlled design addresses three questions:
+
+\begin{enumerate}
+	\item whether the evaluated predictive configurations estimate the next-day logarithmic return when all predictors are restricted to information available by the close of day \(t\);
+	\item whether the analytical procedure recovers the prespecified contemporaneous sector--factor relationships; and
+	\item whether XGBoost and SHAP recover a known predictive dependency when it is explicitly introduced at the correct forecasting horizon, \(t\rightarrow t+1\).
+\end{enumerate}
+
+The audit begins by examining a leakage-contaminated configuration in which the same-day closing-price level is used as the target together with contemporaneous OHLC predictors that are mechanically related to it. \rev{OHLC refers to open, high, low, and close market fields; OHLCV additionally includes volume.} Under this configuration, XGBoost attains an \(R^2\) of approximately \(0.96\). The SHAP analysis assigns more than \(90\%\) of the normalized mean absolute attribution to predictors mechanically connected to the contemporaneous target. This concentration indicates that the model primarily reconstructs an already observed price level rather than forecasts a future financial outcome.
+
+The task is subsequently reformulated to predict the next-day logarithmic return, \(r_{t+1}\), using only information available by the close of day \(t\). This correction removes the identified target-related leakage pathway and converts the experiment from contemporaneous price reconstruction into out-of-sample return forecasting. All predictive configurations are then evaluated using the same aligned sequential test observations.
+
+Under the leakage-free, null-signal condition, the study finds no evidence of predictive improvement over the specified directional reference levels. This result is consistent with the prespecified generator, which contains persistent conditional variance and contemporaneous factor exposures but no deliberately introduced conditional-mean dependency at \(t+1\). It should not be interpreted as evidence of historical market efficiency, economic profitability, or the general inferiority of any evaluated model family. Model rankings in financial forecasting remain sensitive to the dataset, target, horizon, and evaluation metric~\citep{Shobayo2025,Zhang2024review}; accordingly, the analysis avoids claims of universal architectural superiority.
+
+The contribution of this work is methodological. First, it formalizes an audit connecting target definition, temporal feature availability, model attribution, and effective-sample traceability. Second, it evaluates three base models and a fixed-weight ensemble on a common sequential test subset, preventing comparisons across mismatched observations. Third, it separates a leakage-contaminated condition, a leakage-free null-signal condition, and a controlled signal-recovery condition. Finally, it validates the recovery procedure through seed-matched repetitions in which the signal intensity changes while the corresponding noise realization and model random state remain fixed. The study thereby demonstrates how financial machine learning performance can be audited before it is interpreted as evidence of predictive or economic value.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Literature Review}
+\label{sec:literature_review}
+
+Financial forecasting research should not be understood as a linear progression toward increasingly complex architectures. Recurrent models have been used to combine temporal market information with textual and sentiment signals~\citep{Usmani2023,John2023}, while attention-based architectures have been proposed to model dependencies associated with stock movements~\citep{Zhang2022transformer}. Nevertheless, reviews of deep learning for financial time series show that reported performance remains highly sensitive to the prediction target, forecast horizon, input construction, and validation protocol~\citep{Zhang2024review}. This concern is consistent with broader empirical asset-pricing evidence showing that machine learning can be useful, but only under carefully defined targets, predictors, and validation schemes~\citep{Gu2020}. Architectural complexity alone therefore provides limited evidence of genuine predictability unless the data available at the prediction origin, the effective evaluation sample, and the out-of-sample procedure are explicitly traceable.
+
+Robust tabular methods, particularly XGBoost, remain attractive because of their computational efficiency, ability to model nonlinear interactions, and compatibility with feature-attribution methods. Recent applications have reported favorable results for stock-market forecasting~\citep{Gao2025xgboost,Shen2025xgboost}. Such results, however, do not by themselves establish economic predictability. When the target is a contemporaneous price level, predictors are unavailable at the stated forecasting origin, preprocessing incorporates future observations, or tabular and sequential models are evaluated on different samples, performance may reflect the experimental design rather than a transferable signal. Accordingly, model assessment must connect each reported metric to a clearly defined target, prediction horizon, information set, and test subset.
+
+Ensemble learning offers a related promise: combining heterogeneous models or information sources may stabilize predictions and exploit complementary error structures. Financial ensembles have integrated market prices, news, sentiment, and dimensionality-reduction procedures, with improvements reported under specific experimental conditions~\citep{Li2021ensemble,Deng2024}. However, averaging model outputs does not guarantee additional predictive information. Under a leakage-free future-return task, an ensemble must demonstrate that its components contribute complementary out-of-sample signal; otherwise, it may only average errors produced by similarly uninformative models. This distinction is particularly important when the component architectures operate on different input representations or effective sample sizes.
+
+Sector heterogeneity introduces an additional source of structure. Research on sector-return prediction and portfolio optimization suggests that factor exposures and forecasting performance may differ across industries~\citep{Bessler2024}. Macroeconomic conditions have also been associated with stock-price dynamics and equity-premium predictability~\citep{Keswani2024,Buncic2017}. Nevertheless, evidence of cointegration, aggregate predictability, or sector-level exposure does not imply that individual next-day returns are predictable. Establishing such a claim requires a temporally valid out-of-sample design and a clear distinction between contemporaneous association and forward predictive dependence. In the present study, the technology--VIX and energy--WTI relationships are prespecified components of the controlled benchmark. Their recovery validates the analytical procedure under known conditions; it does not constitute empirical evidence about historical market behavior.
+
+Explainability can strengthen this audit by identifying the predictors on which a fitted model relies. SHAP provides a theoretically grounded decomposition of individual predictions into feature-level contributions~\citep{Lundberg2017shap} and has been applied in financial contexts to analyze model interpretation, performance stability, and risk-related decisions~\citep{Wang2025shap,Chan2026financial,Zhang2026bond}. However, predictive attribution is not equivalent to temporal legitimacy or causal explanation. A predictor may receive a large SHAP contribution because it contains valid information, because it is correlated with another influential variable, or because it leaks information from the target period. Consequently, a high SHAP attribution should trigger an examination of feature availability and target alignment before it receives an economic interpretation.
+
+The present work lies at the intersection of these research streams. Rather than seeking a universally superior architecture, it evaluates whether apparent performance survives a temporal audit, whether recurrent, attention-based, tree-based, and ensemble models are compared on a common effective sample, and whether the explanatory procedure distinguishes target-related leakage from controlled predictive structure. The resulting framework combines three conditions within a traceable experimental design: a leakage-contaminated configuration, a leakage-free null--signal task, and a controlled signal-recovery experiment. This design positions explainability as part of methodological validation rather than as a post hoc justification of model performance.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Materials and Methods}
+\label{sec:Methods}
+
+The work uses a controlled financial benchmark generated through a prespecified GARCH-like conditional-variance process. The benchmark comprises nine sector-specific asset series and seven economic indicators observed over 1,304 business-day dates between August 2021 and August 2026. \rev{The unit of the generated time axis is a business-day date, whereas model evaluation is performed on asset-date rows after expanding each date across the nine benchmark assets. This distinction is maintained throughout the manuscript because the chronological split is date-based, while model metrics are calculated on asset-date observations.} The data-generating process is designed to reproduce volatility persistence, asset-level heterogeneity, and prespecified contemporaneous sector--factor exposures. Its parameters, seeds, and factor-loading rules are defined in advance, providing ground-truth knowledge of the dependencies embedded in each experimental condition.
+
+This controlled design serves a specific methodological purpose. In historical market data, the presence, absence, and magnitude of a predictive dependency generally cannot be established with certainty. By contrast, a prespecified data-generating process makes it possible to evaluate whether the audit procedure identifies target-related information leakage, refrains from inferring forward predictability under a null-signal condition, and recovers a known dependency when it is introduced at the forecasting horizon \(t \rightarrow t+1\). The benchmark is therefore used to validate the internal behavior and temporal integrity of the audit pipeline. Relationships recovered from this environment are interpreted as properties of the controlled experimental design and not as empirical findings about historical financial markets.
+
+Figure~\ref{fig:fig1} summarizes the complete experimental workflow. The upper sequence connects benchmark generation, predictor construction, chronological partitioning, model training, performance evaluation, dependency auditing, and result traceability. The lower sequence distinguishes the three auditable conditions examined in the study: a leakage-contaminated configuration, a leakage-free null-signal condition, and a controlled signal-recovery experiment. Together, these conditions allow the pipeline to differentiate mechanically inflated performance, the absence of an embedded forward dependency, and the recovery of a known horizon-aligned signal.
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=\linewidth]{Fig1.jpg}
+	\caption{Methodological architecture of the audited pipeline, distinguishing the leakage-contaminated configuration, the leakage-free null-signal condition, and the controlled signal-recovery experiment.}
+	\label{fig:fig1}
+\end{figure}
+
+\subsection{Controlled Benchmark Construction and Audit Procedure}
+\label{subsec:data_audit}
+
+The empirical framework is built around a controlled financial benchmark rather than a historical reconstruction of publicly traded firms. This design follows directly from the study objective: to determine whether the machine learning pipeline distinguishes among leakage-induced performance, absence of forward predictive structure, and recovery of a prespecified signal. The benchmark contains five technology assets (TECH-1 to TECH-5), four energy assets (ENERGY-1 to ENERGY-4), and seven daily economic indicators.
+
+The observation period is fixed from August 10, 2021, to August 7, 2026, producing 1,304 weekday dates. The calendar uses generic business days rather than the trading calendar of a particular exchange. Fixing the start and end dates ensures that the benchmark contains the same date sequence in every execution and prevents the sample from changing according to the system date. \rev{The final 15\% test partition contains 195 dates. Expanding these dates across nine assets yields \(195\times9=1{,}755\) raw tabular asset-date rows before complete-case filtering and sequence construction.}
+
+\subsubsection{Conditional-Variance Process}
+
+Each benchmark series is generated using a GARCH-like conditional-variance process with Gaussian innovations. The process is defined in Equation~\ref{eq:controlled_generator}:
+
+\begin{equation}
+	\begin{aligned}
+		h_{i,t}
+		&=
+		\omega
+		+
+		\alpha r_{i,t-1}^{2}
+		+
+		\beta h_{i,t-1}, \\
+		u_{i,t}
+		&=
+		b_{i}f_t
+		+
+		\sqrt{1-b_i^{2}}\,z_{i,t},
+		\qquad
+		z_{i,t}\sim\mathcal{N}(0,1), \\
+		r_{i,t}
+		&=
+		\operatorname{clip}
+		\left(
+		\mu_i+\sqrt{h_{i,t}}\,u_{i,t},
+		-0.20,
+		0.20
+		\right), \\
+		P_{i,t}
+		&=
+		P_{i,t-1}(1+r_{i,t}),
+	\end{aligned}
+	\label{eq:controlled_generator}
+\end{equation}
+
+where \(h_{i,t}\) is the conditional variance of series \(i\), \(r_{i,t}\) is its simple return, \(P_{i,t}\) is its closing-price level, \(\mu_i\) is its prespecified drift, and \(z_{i,t}\) is an asset-specific Gaussian innovation. The common conditional-variance parameters are \(\omega=10^{-5}\), \(\alpha=0.05\), and \(\beta=0.94\), resulting in \(\alpha+\beta=0.99\) and persistent volatility dynamics. Returns are bounded to the interval \([-0.20,0.20]\) to prevent isolated simulated innovations from producing numerically implausible price paths.
+
+The term \(f_t\) represents a standardized contemporaneous sector factor, and \(b_i\) controls its contribution to the corresponding asset return. For the technology assets, \(f_t\) is the standardized daily percentage change in VIX and \(b_i=-0.55\). For the energy assets, \(f_t\) is the standardized daily percentage change in WTI and \(b_i=0.65\). The remaining innovation weight, \(\sqrt{1-b_i^2}\), preserves an asset-specific stochastic component. Consequently, assets within the same sector share a controlled factor exposure while retaining distinct trajectories.
+
+The means and standard deviations used to standardize the VIX and WTI changes are estimated from the chronological training period and then held fixed when transforming the validation and test periods. This restriction ensures that future observations do not determine the scale of earlier sector exposures.
+
+The process is described as GARCH-like rather than as a standard econometric GARCH(1,1) specification because its conditional-variance update uses the preceding generated return and its mean component is prespecified rather than estimated. Its methodological purpose is to create persistent, time-varying volatility under known conditions, not to estimate a historical volatility model.
+
+\subsubsection{Series Parameters and Seed Assignment}
+
+Table~\ref{tab:generator_parameters} reports the initial levels, conditional-volatility values, drifts, and random seeds used for the nine asset series. The identifiers are analytical labels and do not correspond to publicly traded companies.
+
+\begin{table}[h]
+	\caption{Asset-level parameters of the controlled data-generating process.}
+	\label{tab:generator_parameters}
+	\setlength{\tabcolsep}{3pt}
+	\centering
+	\begin{tabular}{p{70pt}p{65pt}p{85pt}p{65pt}p{45pt}}
+		\hline
+		\textbf{Asset} &
+		\textbf{Initial level} &
+		\textbf{Initial volatility} &
+		\textbf{Daily drift} &
+		\textbf{Seed} \\
+		\hline
+		
+		TECH-1   & 150 & 0.022 & 0.00030 & 42  \\
+		TECH-2   & 320 & 0.018 & 0.00040 & 43  \\
+		TECH-3   & 450 & 0.035 & 0.00050 & 44  \\
+		TECH-4   & 140 & 0.019 & 0.00030 & 45  \\
+		TECH-5   & 200 & 0.040 & 0.00020 & 46  \\
+		ENERGY-1 & 145 & 0.028 & 0.00010 & 142 \\
+		ENERGY-2 & 110 & 0.032 & 0.00015 & 143 \\
+		ENERGY-3 & 85  & 0.025 & 0.00000 & 144 \\
+		ENERGY-4 & 120 & 0.030 & 0.00020 & 145 \\
+		\hline
+		
+	\end{tabular}
+	\footnotesize
+\end{table}
+
+The seven economic indicators are generated independently using seeds 242 through 248. In their implementation order, these correspond to DCOILWTICO, DHHNGSP, VIXCLS, UNRATE, CPIAUCSL, FEDFUNDS, and SP500. Their respective initial levels are 90, 3.5, 18, 3.8, 310, 4.5, and 5,200. Initial volatility values are 0.035, 0.040, 0.080, 0.0002, 0.003, 0.015, and 0.015, while their daily drift parameters are 0.00001, 0.00002, \(-0.0001\), 0.00001, 0.0004, 0.00001, and 0.0003, respectively. Indicator values are bounded below at 50\% of their initial level to prevent numerically invalid trajectories.
+
+The seeds assigned to individual assets control their idiosyncratic innovations. They do not imply statistical independence among assets within the same sector because the corresponding returns also contain a shared VIX or WTI component.
+
+\subsubsection{OHLCV Construction}
+
+The closing-price paths produced by Equation~\ref{eq:controlled_generator} are used to construct the remaining market variables. The opening price is generated within \(\pm1\%\) of the corresponding closing price. The daily high is generated above the maximum of the opening and closing prices, while the daily low is generated below their minimum. This construction guarantees the internal conditions
+\(\mathrm{Low}_{i,t}\leq\min(\mathrm{Open}_{i,t},\mathrm{Close}_{i,t})\) and
+\(\mathrm{High}_{i,t}\geq\max(\mathrm{Open}_{i,t},\mathrm{Close}_{i,t})\).
+Daily volume is sampled independently from a discrete uniform distribution between 50 and 200 million units.
+
+The OHLCV variables provide a structured input space for feature engineering; they are not intended to reproduce the microstructure, liquidity, or trading activity of historical securities. Likewise, the economic-series identifiers describe controlled factor analogues and do not imply that historical observations were retrieved from an external financial database.
+
+\subsubsection{Audit Conditions}
+
+The benchmark supports three analytically distinct conditions. The first is a leakage-contaminated diagnostic configuration in which a contemporaneous price target is combined with mechanically related same-period predictors. This condition is retained exclusively to identify the source of the preliminary high-performance result.
+
+The second is the corrected null-signal forecasting condition. Its target is the logarithmic return at \(t+1\), and every predictor is restricted to information available by the close of day \(t\). The baseline generator contains conditional volatility and contemporaneous sector-factor structure but no deliberately introduced conditional-mean dependency at the forecasting horizon.
+
+The third condition is a separate controlled signal-recovery experiment in which a known dependency is introduced between a predictor observed at day \(t\) and a target at day \(t+1\). Its construction, randomization, training procedure, and SHAP evaluation are specified independently in the controlled signal-injection protocol. Keeping this intervention separate from the baseline generator prevents contemporaneous sector exposure from being conflated with genuine forward information.
+
+Together, these conditions distinguish among target-related leakage, recovery of known contemporaneous structure, absence of an embedded forward signal, and recovery of a deliberately aligned predictive dependency. The controlled benchmark provides ground-truth knowledge for this audit, but its recovered relationships are not presented as empirical findings about historical financial markets.
+
+\subsection{Predictor Engineering and Preprocessing}
+\label{subsec:predictor_engineering}
+
+The main experiment uses 18 predictors for each asset-date observation. Every predictor is constructed using information available by the close of day \(t\), whereas the forecasting target corresponds to the next-day logarithmic return. The return observed at day \(t\) and the associated forecasting target are defined jointly in Equation~\ref{eq:return_target}:
+
+\begin{equation}
+	r_t
+	=
+	\ln\left(\frac{P_t}{P_{t-1}}\right),
+	\qquad
+	y_t
+	=
+	r_{t+1}
+	=
+	\ln\left(\frac{P_{t+1}}{P_t}\right),
+	\label{eq:return_target}
+\end{equation}
+
+where \(P_t\) denotes the closing price at day \(t\). The prediction origin is the close of day \(t\), and none of the predictors used to estimate \(y_t\) contains information observed at day \(t+1\). The closing-price level \(P_t\) is not included as an isolated contemporaneous predictor, although it is legitimately used to construct transformations available at the prediction origin. Logarithmic returns provide an additive representation of multiplicative price changes and facilitate comparison among assets with different initial price levels; their use does not imply a Gaussian return distribution.
+
+The first predictor group contains two simple moving averages calculated from closing prices over 20- and 50-day windows. The corresponding variables, SMA\_20 and SMA\_50, summarize shorter- and intermediate-horizon price trends. Their inclusion is consistent with financial forecasting frameworks that combine smoothed technical indicators with sequential learning components~\citep{Srijiranon2022}. The moving averages are treated as independent model inputs, and no deterministic crossover or trading rule is imposed.
+
+The second predictor group contains the 20-day rolling volatility, Vol\_20, calculated as the standard deviation of the most recent 20 logarithmic returns, including the return observed at day \(t\). This variable summarizes recent realized variability and allows the models to represent changing volatility regimes. Volatility persistence may contain information about future conditional variance, but it does not independently imply predictability in the conditional mean or direction of returns.
+
+The third group contains closing-price and return lags at one- and five-day horizons: Close\_Lag1, Close\_Lag5, Return\_Lag1, and Return\_Lag5. Four additional OHLCV variables are included with a one-day lag: Open\_Lag1, High\_Lag1, Low\_Lag1, and Volume\_Lag1. The use of lagged OHLCV values provides a conservative temporal specification and avoids ambiguity regarding intraday availability.
+
+The predictor vector is completed by seven controlled economic indicators observed at day \(t\): DCOILWTICO, VIXCLS, DHHNGSP, UNRATE, CPIAUCSL, FEDFUNDS, and SP500. Their availability at the close of day \(t\) is defined by the controlled benchmark and should not be interpreted as a statement about the release schedules, revisions, or publication delays of corresponding historical economic series.
+
+The resulting predictor vector contains 18 variables: two moving averages, one historical-volatility measure, two closing-price lags, two return lags, four lagged OHLCV variables, and seven economic indicators. The predictor count is therefore \(2+1+2+2+4+7=18\). The contemporaneous logarithmic return \(r_t\) is used in the construction of Vol\_20 but is not added as a separate nineteenth predictor.
+
+Before model fitting, the data are partitioned chronologically into 70\% for training, 15\% for validation, and 15\% for testing. The split is performed by date so that all assets observed on the same date remain in the same temporal partition. This prevents observations from a given day from appearing simultaneously in training and evaluation subsets.
+
+All 18 predictors are transformed using Min--Max scaling. For predictor \(j\), the transformation is defined in Equation~\ref{eq:minmax_scaling}:
+
+\begin{equation}
+	x^{\mathrm{scaled}}_{j,t}
+	=
+	\frac{
+		x_{j,t}-x^{\mathrm{train}}_{j,\min}
+	}{
+		x^{\mathrm{train}}_{j,\max}
+		-
+		x^{\mathrm{train}}_{j,\min}
+	}.
+	\label{eq:minmax_scaling}
+\end{equation}
+
+The minimum and maximum values are estimated exclusively from the training partition. The fitted transformation is then applied without refitting to the validation and test partitions. Consequently, an observation from validation or testing may fall outside the interval \([0,1]\) when its value exceeds the range observed during training. Predictors with zero range in the training partition are mapped to a fixed zero value using the numerical safeguard implemented by the scaler.
+
+Scaling is used primarily to improve the numerical conditioning and optimization of the neural architectures. Although tree-based models such as XGBoost are generally invariant to monotonic feature scaling, the same transformed representation is used across models so that every architecture receives equivalent predictor information. The chronological partition is defined before fitting the scaler, preventing validation or test observations from influencing the preprocessing parameters.
+
+Sequential inputs are constructed independently for each asset after scaling. Each neural-network input contains 30 consecutive observations from a single asset and is paired with the next-day target associated with the corresponding prediction origin. Sequences never cross asset boundaries. Within the 195-date test partition, the sequence and target-alignment procedure removes the first 30 observations required to initialize each window and the final observation for which a subsequent target is unavailable. This produces \(195-30-1=164\) aligned observations per asset and a common sequential test subset of \(164\times9=1{,}476\) observations.
+
+Two evaluation universes are consequently maintained. The raw tabular test partition contains 195 dates for each of the nine assets, yielding \(195\times9=1{,}755\) asset-date rows. After complete-case filtering on the predictor set and next-day target, the effective tabular sample used for XGBoost interpretation and SHAP contains \(N=1{,}746\) observations, corresponding to 194 observations per asset. Cross-architecture performance is evaluated exclusively on the common sequential subset of \(N=1{,}476\), using the exact asset, date, and target indices available to every model. This alignment prevents metrics calculated from different effective samples from being compared directly.
+
+\subsection{Model Architectures and Training Procedure}
+\label{subsec:model_architectures}
+
+Three base models and one fixed-weight ensemble were evaluated under the same chronological partitioning protocol: an LSTM network, a simplified attention model, XGBoost, and their fixed-weight combination. All models used the predictors defined for the main experiment and were fitted exclusively on the training partition. The validation partition was used for monitoring or model-selection operations when supported by the corresponding training procedure, whereas the test partition remained inaccessible until final evaluation. Accordingly, validation-based decisions were not considered information leakage because neither model fitting nor hyperparameter decisions incorporated test-set information.
+
+The LSTM receives 30-day sequences constructed independently for each asset. No sequence crosses asset boundaries, and every sequence is associated with the next-day return corresponding to its final prediction origin. The network contains two recurrent layers with 64 and 32 units, respectively. Each recurrent layer is followed by dropout with a rate of \(0.2\). The recurrent representation is then passed through a dense layer with 16 units and ReLU activation, followed by a single linear output unit. The hidden LSTM states use the hyperbolic tangent activation implemented by the recurrent architecture.
+
+The LSTM is trained for 30 epochs using a batch size of 32 and the Adam optimizer with a learning rate of \(0.001\). No early-stopping rule or best-checkpoint restoration is applied; consequently, the reported predictions correspond to the model state obtained at the final training epoch. The optimization objective is the mean squared error, defined in Equation~\ref{eq:mse_loss}:
+
+\begin{equation}
+	\mathcal{L}_{\mathrm{MSE}}
+	=
+	\frac{1}{n}
+	\sum_{i=1}^{n}
+	\left(\hat{y}_i-y_i\right)^2,
+	\label{eq:mse_loss}
+\end{equation}
+
+where \(y_i\) denotes the observed next-day logarithmic return and \(\hat{y}_i\) denotes its corresponding prediction.
+
+The simplified attention model operates on the same asset-specific 30-day input windows. Its implemented attention block uses \texttt{MultiHeadAttention} with four heads, \(\texttt{key\_dim}=16\), and the layer default attention dropout of \(0.0\). The attention output is added directly to the original input tensor through a residual connection, \(x_{\mathrm{att}}+x_{\mathrm{in}}\), and the resulting tensor is passed to \texttt{LayerNormalization} with \(\epsilon=10^{-6}\). The normalized sequence representation is then reduced using \texttt{GlobalAveragePooling1D}, followed by a dense layer with 32 ReLU units, an additional dropout layer with rate \(0.2\), a dense layer with 16 ReLU units, and a single linear output unit. The architecture does not include explicit positional encodings or the complete position-wise feed-forward block used in a standard Transformer. Because self-attention followed by global average pooling does not independently preserve the ordering of the observations without positional information, this architecture should be interpreted as a simplified attention-based aggregation model rather than as a complete temporal Transformer. Its results therefore do not support general conclusions about Transformer architectures for financial forecasting.
+
+The simplified attention model is trained with the same neural training loop used for the LSTM: 30 epochs, batch size of 32, Adam optimizer, learning rate of \(0.001\), and mean squared error loss. The initial neural implementation did not set fixed TensorFlow, NumPy, or Python random seeds. Because a single unseeded neural realization is insufficient for a reproducibility-oriented audit, \rev{the LSTM and simplified attention results used for neural inference are reported from 10 fixed-seed repetitions, \(s\in\{0,\ldots,9\}\), while preserving the same architecture, preprocessing, chronological partition, epochs, batch size, optimizer, learning rate, loss function, and common sequential test subset.} No early-stopping rule, model checkpoint callback, or best-validation restoration is applied to either neural model; the predictions for each seeded repetition therefore correspond to the final epoch. XGBoost, by contrast, is initialized with \(\texttt{random\_state}=42\). \rev{The fixed-weight ensemble is retained as a pipeline diagnostic because its original construction depends on aligned outputs from the implemented component models, but the substantive neural conclusion is based on the 10-seed distributions rather than on a single stochastic realization.}
+
+XGBoost is trained using individual asset-date observations rather than 30-day tensors. Its configuration includes a maximum of 100 boosting rounds, a maximum tree depth of 5, a learning rate of \(0.1\), row subsampling of \(0.8\), column subsampling of \(0.8\), and a squared-error regression objective. Training performance is monitored on the chronological validation partition, with early stopping after 10 consecutive boosting rounds without improvement. The selected XGBoost model therefore corresponds to the best validation iteration rather than necessarily to the final boosting round.
+
+This validation-based checkpoint selection introduces an optimization asymmetry. XGBoost retains its best validation iteration, whereas the LSTM and simplified attention model retain their final epoch. The resulting comparison is consequently interpreted as a controlled pipeline diagnostic under fixed training configurations, rather than as an exhaustive architecture-ranking exercise in which every model receives an equivalent hyperparameter-optimization budget.
+
+The ensemble combines aligned predictions from its constituent models using a fixed weighted average. Its prediction is defined in Equation~\ref{eq:ensemble_prediction}:
+
+\begin{equation}
+	\hat{y}^{\,\mathrm{ens}}_i
+	=
+	\sum_{m=1}^{M}
+	w_m\hat{y}_{i,m},
+	\qquad
+	w_m\geq 0,
+	\qquad
+	\sum_{m=1}^{M}w_m=1,
+	\label{eq:ensemble_prediction}
+\end{equation}
+
+where \(\hat{y}_{i,m}\) is the prediction generated by constituent model \(m\) for observation \(i\), \(w_m\) is its prespecified weight, and \(M\) is the number of models included in the ensemble. The implemented weights are fixed at \(0.4\) for LSTM, \(0.4\) for the simplified attention model, and \(0.2\) for XGBoost. These weights are set before test-set evaluation and are not estimated from test performance.
+
+Because XGBoost produces one prediction per asset-date observation and the neural models produce one prediction per completed sequence, all outputs are aligned using the asset identifier, prediction date, and exact target index associated with each 30-day window. Only observations available for every compared architecture are retained. The ensemble and the primary cross-model comparison are therefore evaluated on the common sequential subset of \(N=1{,}476\) observations.
+
+Algorithm~\ref{alg:lstm_training} summarizes the training and prediction procedure used for the LSTM component.
+
+\begin{algorithm}[h]
+	\caption{Training and prediction procedure for the LSTM component.}
+	\label{alg:lstm_training}
+	\begin{algorithmic}[1]
+		\REQUIRE Training sequences \(X_{\mathrm{train}}\), training targets \(y_{\mathrm{train}}\), validation sequences \(X_{\mathrm{val}}\), validation targets \(y_{\mathrm{val}}\), and test sequences \(X_{\mathrm{test}}\)
+		\REQUIRE Sequence length \(=30\), \(n_1=64\), \(n_2=32\), \(n_d=16\), dropout \(=0.2\), epochs \(=30\), batch size \(=32\), and learning rate \(\eta=0.001\)
+		\ENSURE Predictions \(\hat{y}_{\mathrm{train}}\), \(\hat{y}_{\mathrm{val}}\), and \(\hat{y}_{\mathrm{test}}\)
+		
+		\STATE Construct asset-specific sequences without crossing asset boundaries
+		\STATE Initialize a sequential neural network
+		\STATE Add an LSTM layer with \(n_1\) units and sequence output enabled
+		\STATE Add a dropout layer with rate \(0.2\)
+		\STATE Add an LSTM layer with \(n_2\) units
+		\STATE Add a dropout layer with rate \(0.2\)
+		\STATE Add a dense layer with \(n_d\) units and ReLU activation
+		\STATE Add a one-unit dense layer with linear activation
+		\STATE Compile the model using Adam with learning rate \(\eta\) and MSE loss
+		\STATE Fit the model on \((X_{\mathrm{train}},y_{\mathrm{train}})\) for 30 epochs, using \((X_{\mathrm{val}},y_{\mathrm{val}})\) only for validation monitoring
+		\STATE Compute \(\hat{y}_{\mathrm{train}}\) from \(X_{\mathrm{train}}\)
+		\STATE Compute \(\hat{y}_{\mathrm{val}}\) from \(X_{\mathrm{val}}\)
+		\STATE Compute \(\hat{y}_{\mathrm{test}}\) from \(X_{\mathrm{test}}\)
+		\RETURN \(\hat{y}_{\mathrm{train}},\hat{y}_{\mathrm{val}},\hat{y}_{\mathrm{test}}\)
+	\end{algorithmic}
+\end{algorithm}
+
+\subsection{Performance Evaluation and Explainability Analysis}
+\label{subsec:evaluation_explainability}
+
+Predictive performance is evaluated using explicitly differentiated test samples. The raw tabular test partition contains 195 dates for each of the nine assets, yielding \(195\times9=1{,}755\) asset-date rows. After complete-case filtering on the predictor set and next-day target, the effective tabular sample used for XGBoost/SHAP contains \(N=1{,}746\) observations. The common sequential subset contains \(N=1{,}476\) observations after constructing the 30-day asset-specific windows and aligning their next-day targets. To ensure comparability, the LSTM, simplified attention model, XGBoost, and ensemble are evaluated using the same observations and target indices from this common subset.
+
+Predictive performance is quantified using the mean absolute error (MAE), root mean squared error (RMSE), and coefficient of determination (\(R^2\)), as defined jointly in Equation~\ref{eq:performance_metrics}:
+
+\begin{equation}
+	\begin{aligned}
+		\mathrm{MAE}
+		&=
+		\frac{1}{n}
+		\sum_{i=1}^{n}
+		\left|\hat{y}_i-y_i\right|, \\
+		\mathrm{RMSE}
+		&=
+		\sqrt{
+			\frac{1}{n}
+			\sum_{i=1}^{n}
+			\left(\hat{y}_i-y_i\right)^2
+		}, \\
+		R^2
+		&=
+		1-
+		\frac{
+			\sum_{i=1}^{n}
+			\left(y_i-\hat{y}_i\right)^2
+		}{
+			\sum_{i=1}^{n}
+			\left(y_i-\bar{y}\right)^2
+		}.
+	\end{aligned}
+	\label{eq:performance_metrics}
+\end{equation}
+
+Here, \(y_i\) denotes the observed next-day logarithmic return, \(\hat{y}_i\) is its predicted value, and \(\bar{y}\) is the mean observed return in the evaluated subset. Negative \(R^2\) values are retained and interpreted directly: they indicate that the model produces a larger squared prediction error than a constant predictor based on the test-subset mean.
+
+Directional accuracy is calculated as the proportion of observations for which the predicted and observed returns have the same sign. Observations with an exactly zero predicted or observed return are treated according to the sign convention implemented in the evaluation code. Directional performance is assessed against two reference probabilities: the nominal balanced-direction benchmark of \(0.5\) and the observed majority-class rate in the common test subset. The latter is calculated as the larger proportion of positive or negative observed returns.
+
+For each model, two-sided binomial tests compare the number of correct directional predictions with each reference probability. Because asset-date outcomes may exhibit temporal and cross-sectional dependence, these tests are interpreted as nominal directional diagnostics rather than as dependence-robust inferential evidence. \rev{To address this limitation directly, a moving-block bootstrap is additionally implemented on the common sequential test subset~\citep{Kunsch1989}. The procedure resamples overlapping blocks of 10 consecutive test dates with replacement until the 164-date test horizon is reconstructed; for every sampled date, all available asset-level observations are retained together. This preserves the cross-sectional grouping of assets observed on the same date while also retaining local temporal dependence across adjacent dates. The block length is selected as a short two-week trading window that is long enough to preserve local volatility clustering in the test period while leaving enough overlapping blocks for resampling. For each model, 5,000 bootstrap samples are used to estimate 95\% intervals for directional accuracy and bootstrap diagnostics against the \(0.5\) and majority-class reference rates. Sensitivity checks with block lengths of 5 and 20 dates lead to the same substantive conclusion.}
+
+\rev{Three simple baselines are also evaluated on the identical \(N=1{,}476\) common sequential subset: a zero-return predictor, a training-set mean-return predictor, and a linear regression using Return\_Lag1 and Return\_Lag5 as predictors. The zero-return predictor corresponds to a random-walk price benchmark, \(\hat{P}_{t+1}=P_t\), and is included for squared-error comparison only because an exactly zero return forecast does not encode a positive or negative direction under the implemented sign convention. These baselines are intended as minimal statistical references rather than optimized forecasting models.}
+
+Model explainability is examined using SHAP values~\citep{Lundberg2017shap}. The analysis is restricted to XGBoost because its tree structure permits efficient additive decomposition through \texttt{TreeExplainer}. Applying SHAP to the LSTM and simplified attention model would require model-specific approximation procedures, such as \texttt{DeepExplainer} or \texttt{GradientExplainer}, which were not implemented. Consequently, the explainability results are not interpreted as a direct comparison among architectures.
+
+For predictor \(j\) and observation \(x\), the Shapley attribution is defined in Equation~\ref{eq:shap_value}:
+
+\begin{equation}
+	\phi_j(f,x)
+	=
+	\sum_{S\subseteq\mathcal{F}\setminus\{j\}}
+	\frac{
+		|S|!\left(M-|S|-1\right)!
+	}{
+		M!
+	}
+	\left[
+	v_x\left(S\cup\{j\}\right)-v_x(S)
+	\right],
+	\label{eq:shap_value}
+\end{equation}
+
+where \(\mathcal{F}\) is the complete predictor set, \(M=|\mathcal{F}|\), \(S\) is a predictor subset that excludes \(j\), and \(v_x(S)\) represents the model output under the background-data assumptions adopted by the explainer.
+
+SHAP values are computed for all 1,746 complete-case observations in the effective tabular test sample, without subsampling. Global predictor importance is calculated as the mean absolute SHAP value across these observations. When percentages are reported, each predictor's mean absolute SHAP value is divided by the sum across all predictors and multiplied by 100. Group-level importance is obtained by summing the values assigned to predictors belonging to the same prespecified category.
+
+The use of absolute SHAP values summarizes the magnitude of a predictor's contribution independently of its direction. SHAP identifies the dependencies used by XGBoost, but it does not independently establish temporal legitimacy, statistical causality, or economic significance.
+
+Algorithm~\ref{alg:evaluation_shap} summarizes the aligned model evaluation and XGBoost explainability procedure.
+
+\begin{algorithm}[h]
+	\caption{Aligned model evaluation and XGBoost SHAP analysis.}
+	\label{alg:evaluation_shap}
+	\begin{algorithmic}[1]
+		\REQUIRE Fitted LSTM, attention, and XGBoost models
+		\REQUIRE Sequential test inputs \(X_{\mathrm{test}}^{\mathrm{seq}}\), full tabular test inputs \(X_{\mathrm{test}}^{\mathrm{tab}}\), aligned targets \(y_{\mathrm{test}}^{\mathrm{seq}}\), and alignment indices \(\mathcal{I}_{\mathrm{seq}}\)
+		\ENSURE Aligned performance metrics and XGBoost SHAP importance values
+		
+		\STATE Predict \(\hat{y}^{\mathrm{LSTM}}\) from \(X_{\mathrm{test}}^{\mathrm{seq}}\)
+		\STATE Predict \(\hat{y}^{\mathrm{ATT}}\) from \(X_{\mathrm{test}}^{\mathrm{seq}}\)
+		\STATE Predict \(\hat{y}^{\mathrm{XGB,full}}\) from \(X_{\mathrm{test}}^{\mathrm{tab}}\)
+		\STATE Align \(\hat{y}^{\mathrm{XGB,full}}\) using \(\mathcal{I}_{\mathrm{seq}}\)
+		\STATE Compute the ensemble as \(0.4\hat{y}^{\mathrm{LSTM}}+0.4\hat{y}^{\mathrm{ATT}}+0.2\hat{y}^{\mathrm{XGB}}\)
+		
+		\FOR{each aligned model prediction}
+		\STATE Compute MAE, RMSE, \(R^2\), and directional accuracy
+		\STATE Perform two-sided binomial tests against \(0.5\) and the majority-class rate
+		\STATE Store the metrics and corresponding \(p\)-values
+		\ENDFOR
+		
+		\STATE Initialize \texttt{TreeExplainer} using the fitted XGBoost model
+		\STATE Compute SHAP values for all observations in \(X_{\mathrm{test}}^{\mathrm{tab}}\)
+		\STATE Compute predictor-level mean absolute SHAP importance
+		\STATE Normalize or aggregate importance values when required
+		\RETURN Performance results and SHAP importance values
+	\end{algorithmic}
+\end{algorithm}
+
+\subsection{Inferential Scope and Limitations of the Experimental Design}
+\label{subsec:inferential_scope}
+
+The experimental design provides methodological evidence rather than direct empirical evidence about historical financial markets. This distinction is central to the interpretation of the results. The controlled benchmark specifies in advance which contemporaneous and predictive dependencies are present in the data-generating process. This ground-truth knowledge makes it possible to evaluate whether the pipeline distinguishes among leakage-induced performance, the absence of a forward predictive signal, and the recovery of a known dependency. At the same time, it limits external validity: the recovered sector-factor relationships cannot be interpreted as discoveries about publicly traded technology or energy firms, nor as evidence of profitability, hedging effectiveness, or market efficiency.
+
+The inferential target of the study is expressed conceptually in Equation~\ref{eq:conditional_scope}:
+
+\begin{equation}
+	\Pr\!\left(
+	A_m>A_0
+	\mid
+	\mathcal{G},
+	X_{\leq t},
+	\Pi,
+	\mathcal{M}_{\theta},
+	H=t\rightarrow t+1
+	\right),
+	\label{eq:conditional_scope}
+\end{equation}
+
+where \(A_m\) denotes the performance of model \(m\), \(A_0\) denotes the corresponding reference performance under the null-signal condition, \(\mathcal{G}\) is the prespecified data-generating process, \(X_{\leq t}\) contains the information available by the close of day \(t\), \(\Pi\) denotes the chronological partitioning protocol, \(\mathcal{M}_{\theta}\) represents the evaluated architectures and their fixed hyperparameter configurations, and \(H\) is the forecasting horizon. Equation~\ref{eq:conditional_scope} is a formal statement of inferential scope rather than an additional estimator: the conclusions are conditional on the benchmark, information set, temporal partition, model configurations, and prediction horizon used in the experiment.
+
+Temporal validation is employed in a restricted sense. The experiment uses a single chronological partition of 70\% for training, 15\% for validation, and 15\% for testing. This structure preserves temporal order and prevents the test partition from entering model fitting or operational selection. However, a single split does not evaluate stability across multiple forecast origins, alternative training periods, structural breaks, volatility crises, or changing market regimes. \rev{Although cross-validation and repeated resampling can support time-series predictor evaluation when dependence and temporal order are handled carefully~\citep{Bergmeir2012}, the present design uses only one chronological forecast origin.} The study therefore does not claim general temporal robustness. It establishes only that, under the specified partition and null-signal condition, the corrected pipeline does not outperform the evaluated directional reference rates.
+
+The architectural comparison is similarly bounded. The LSTM, simplified attention model, XGBoost, and fixed-weight ensemble are evaluated using transparent configurations and a common target subset, but they are not exhaustively optimized representatives of their respective model families. XGBoost uses validation-based early stopping, whereas the neural models retain their final training epoch. Moreover, the protocol does not include systematic hyperparameter optimization, best-checkpoint restoration for the neural models, or a complete Transformer architecture with positional encoding. \rev{The 10-seed neural sensitivity analysis evaluates initialization sensitivity under the null-signal condition, but it does not convert the experiment into a full hyperparameter-optimization study.} The results should therefore be interpreted as a diagnostic comparison within the audited pipeline, not as a definitive performance hierarchy among machine learning architectures.
+
+The simplified attention model imposes an additional representational limitation. Without positional encoding, its self-attention and global-pooling operations do not explicitly retain the chronological order of the observations within each input window. Its performance consequently cannot support broader conclusions about temporally informed Transformer models. Instead, it provides evidence only about the specific attention-based aggregation architecture implemented in this study.
+
+The study also does not evaluate operational economic value. Transaction costs, bid--ask spreads, slippage, liquidity constraints, portfolio turnover, position sizing, and risk-adjusted performance are outside the experimental protocol. No executable trading strategy is constructed. \rev{The evaluated statistical baselines are deliberately minimal and include zero return, the training-set mean return, and lagged-return linear regression; they do not constitute a full family of traditional forecasting models such as ARIMA, ETS, predictive GARCH specifications, or technical trading systems.} In addition, the analysis does not implement paired forecast-comparison procedures such as the Diebold--Mariano test. The absence of a directional advantage must therefore be interpreted as a lack of predictive evidence under the specified experimental conditions, not as proof of market efficiency or of the impossibility of financial forecasting.
+
+The binomial tests used for directional evaluation also require a cautious interpretation. They treat prediction outcomes as Bernoulli observations, whereas the test set may contain temporal dependence and cross-sectional dependence among assets observed on the same date. Their \(p\)-values are therefore reported as nominal diagnostics. \rev{The moving-block bootstrap partially addresses this dependence concern by resampling consecutive date blocks and preserving the asset grouping within each sampled date. This procedure is still conditional on the single chronological test period and should not be interpreted as evidence of stability across alternative market regimes or forecast origins.}
+
+Together, these limitations define the methodological contribution. The experiment shows that apparently strong performance can disappear after target-related leakage is removed; that a null predictive result is coherent when the controlled generator contains no conditional mean dependency at the \(t\rightarrow t+1\) horizon; and that XGBoost and SHAP recover a known linear dependency when it is explicitly introduced at that horizon. The objective is therefore not to maximize forecasting performance, but to provide a traceable distinction among spurious performance, absence of predictive structure, and controlled signal recovery.
+
+\subsection{Controlled Signal-Injection Protocol}
+\label{subsec:signal_injection_protocol}
+
+The controlled signal-injection experiment provides a positive validation of the audited pipeline. Its purpose is to determine whether XGBoost recovers predictive performance and whether SHAP assigns increasing importance to the signal-carrying predictor when a known dependency is introduced at the correct forecasting horizon. This experiment is conducted independently of the contemporaneous technology--VIX and energy--WTI exposures embedded in the baseline generator.
+
+The signal carrier is the first difference of the controlled VIX indicator observed at day \(t\). This change is calculated chronologically before separating the training, validation, and test partitions so that the first observation in each partition retains its legitimate preceding value. No observation from day \(t+1\) is used to construct the predictor.
+
+The mean and standard deviation of the VIX changes are estimated exclusively from the chronological training partition. These parameters are then held fixed when transforming the validation and test partitions. The resulting standardized variable, denoted by \(z(\Delta\mathrm{VIX}_t)\), is appended to the original 18-predictor vector as the nineteenth predictor, \(\mathrm{VIXchg}_t\).
+
+For signal intensity \(\gamma\) and stochastic repetition \(s\), the controlled target is defined in Equation~\ref{eq:controlled_signal_injection}:
+
+\begin{equation}
+	y_{t+1}^{(\gamma,s)}
+	=
+	\gamma z\!\left(\Delta\mathrm{VIX}_t\right)
+	+
+	\varepsilon_{t+1}^{(s)},
+	\qquad
+	\varepsilon_{t+1}^{(s)}
+	\sim
+	\mathcal{N}\!\left(0,\sigma_{\mathrm{train}}^{2}\right),
+	\label{eq:controlled_signal_injection}
+\end{equation}
+
+where \(y_{t+1}^{(\gamma,s)}\) is the controlled target at day \(t+1\), \(\gamma\) determines the injected signal intensity, and \(\sigma_{\mathrm{train}}\) is the standard deviation of the original next-day return target in the training partition. Because the signal carrier is observed at day \(t\) and its effect is assigned to the target at day \(t+1\), the injected dependency respects the forecasting horizon and does not introduce target leakage.
+
+The evaluated signal intensities are \(\gamma=0\), \(0.005\), \(0.010\), \(0.020\), \(0.050\), and \(0.100\). The condition \(\gamma=0\) serves as a negative control. Under this condition, the target contains only Gaussian noise with the same scale as the original training target, and \(\mathrm{VIXchg}_t\) has no deliberately introduced forward effect. The remaining levels progressively increase the contribution of the known predictor while preserving the noise scale.
+
+Each signal-intensity level is evaluated across 10 stochastic repetitions, indexed by \(s\in\{0,\ldots,9\}\). For a given seed, the same training, validation, and test noise realizations are reused across all values of \(\gamma\). The XGBoost random state is also held constant within the corresponding seed. This common-random-number design allows comparisons across signal intensities while reducing variation caused by different noise realizations or model randomization.
+
+For every seed, separate Gaussian noise vectors are generated for the training, validation, and test partitions. These vectors are reused across signal intensities within the same seed but remain independent across temporal partitions. Consequently, the systematic experimental change within each seeded repetition is the magnitude of the injected dependency.
+
+The chronological 70/15/15 partition employed in the main experiment is preserved. The original 18 predictors are transformed using the Min--Max scaler fitted exclusively on the training partition. The additional \(\mathrm{VIXchg}_t\) predictor is standardized using the mean and standard deviation of the training-period VIX changes. Neither transformation is refitted on validation or test observations.
+
+A separate XGBoost model is fitted for every combination of signal intensity and seed, resulting in 60 separately trained models. Each model uses the same fixed configuration as the primary XGBoost experiment: a maximum of 100 boosting rounds, maximum tree depth of 5, learning rate of \(0.1\), row subsampling of \(0.8\), column subsampling of \(0.8\), and a squared-error regression objective. The chronological validation partition is used for early stopping with a patience of 10 boosting rounds, while the test partition remains inaccessible until final evaluation.
+
+Predictive recovery is evaluated on the complete-case tabular test sample (\(N=1{,}746\)) using \(R^2\), MAE, and directional accuracy. All hyperparameters, partitions, predictor definitions, and evaluation procedures are held constant across intensity levels. Accordingly, the experiment does not perform intensity-specific hyperparameter optimization, and changes in performance are interpreted in relation to the controlled increase in \(\gamma\).
+
+For every fitted model, \texttt{TreeExplainer} is applied to the complete-case tabular test sample without subsampling. Predictor importance is calculated as the mean absolute SHAP value across all test observations. Each predictor's importance is then normalized by the sum of the mean absolute SHAP values across the complete 19-predictor set.
+
+The injected predictor is evaluated using its normalized mean absolute SHAP importance and its position in the corresponding predictor ranking, where rank 1 denotes the largest mean absolute SHAP importance. For each signal-intensity level, predictive metrics and SHAP quantities are aggregated across the 10 seeds and reported using their mean and standard deviation.
+
+Controlled signal recovery is supported when increasing \(\gamma\) produces stronger mean predictive performance and increasing mean SHAP importance for \(\mathrm{VIXchg}_t\), while the negative-control condition remains close to null-signal behavior. Because the signal carrier is explicitly included in the predictor vector and enters the target through a linear dependency, this protocol validates recovery of an available and correctly aligned linear signal. Recovery of omitted predictors, nonlinear interactions, or regime-dependent dependencies is outside this experimental condition.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Results}
+\label{sec:Results}
+
+\subsection{Architecture Comparison: No Detectable Predictive Advantage}
+\label{subsec:architecture_comparison}
+
+The analysis examines whether any of the four evaluated models predicts the next-day logarithmic return beyond the specified reference levels under the null-signal condition. To ensure direct comparability, all performance metrics and directional tests are calculated using the common sequential test subset of \(N=1{,}476\) observations.
+
+As shown in Table~\ref{tab:model_performance}, none of the evaluated predictive configurations explains out-of-sample return variance. \rev{The neural results are reported as 10-seed means with standard deviations, so the main neural evidence does not depend on a single stochastic initialization.} The LSTM mean \(R^2\) is approximately zero, the simplified attention model remains slightly negative on average, and XGBoost also produces a negative \(R^2\). These values indicate that the models do not improve on a constant prediction based on the mean return of the evaluated subset under the squared-error criterion.
+
+\begin{table}[h]
+	\caption{Comparative predictive performance on the common sequential test subset (\(N=1{,}476\)). \rev{Neural-model entries report mean \(\pm\) SD across 10 fixed seeds. The table is a pipeline diagnostic under fixed configurations, not a definitive architecture ranking; XGBoost uses validation-based early stopping, whereas the neural models retain their final epoch.}}
+	\label{tab:model_performance}
+	\setlength{\tabcolsep}{3pt}
+	\centering
+	\begin{tabular}{p{135pt}p{70pt}p{70pt}p{75pt}p{85pt}}
+		\hline
+		\textbf{Model} &
+		\textbf{MAE} &
+		\textbf{RMSE} &
+		\(\boldsymbol{R^2}\) &
+		\textbf{Directional accuracy} \\
+		\hline
+		
+		LSTM, 10 seeds &
+		\(0.0422\pm0.0001\) &
+		\(0.0558\pm0.0001\) &
+		\(0.0000\pm0.0030\) &
+		\(49.95\%\pm0.23\%\) \\
+		
+		Simplified attention, 10 seeds &
+		\(0.0422\pm0.0002\) &
+		\(0.0559\pm0.0002\) &
+		\(-0.0045\pm0.0064\) &
+		\(49.94\%\pm0.46\%\) \\
+		
+		XGBoost &
+		0.0422 &
+		0.0559 &
+		-0.0052 &
+		49.53\% \\
+		
+		Fixed ensemble (diagnostic) &
+		0.0423 &
+		0.0560 &
+		-0.0072 &
+		49.86\% \\
+		\hline
+		
+	\end{tabular}
+	\footnotesize
+\end{table}
+
+\rev{Additional diagnostics are reported in Table~\ref{tab:null_signal_robustness}. The simple statistical baselines remain close to zero explanatory power: the training-mean baseline produces \(R^2\approx0\), and the lagged-return OLS baseline produces \(R^2=0.0004\). An equal-weight ensemble sensitivity check produces \(R^2=-0.0059\) and directional accuracy of \(49.59\%\), indicating that the null conclusion does not depend on the fixed 40/40/20 weighting scheme.}
+
+\begin{table}[h]
+	\color{red}
+	\caption{Additional null-signal diagnostics on the common sequential test subset.}
+	\label{tab:null_signal_robustness}
+	\setlength{\tabcolsep}{3pt}
+	\centering
+	\begin{tabular}{p{170pt}p{45pt}p{90pt}p{105pt}}
+		\hline
+		\textbf{Diagnostic} &
+		\(\boldsymbol{N}\) &
+		\(\boldsymbol{R^2}\) &
+		\textbf{Directional accuracy} \\
+		\hline
+		Fixed-weight ensemble & 1,476 & -0.0072 & 49.86\% \\
+		Equal-weight ensemble & 1,476 & -0.0059 & 49.59\% \\
+		Zero-return baseline & 1,476 & -0.0001 & n/a \\
+		Training-mean baseline & 1,476 & -0.0000 & 50.14\% \\
+		Lagged-return OLS & 1,476 & 0.0004 & 50.20\% \\
+		\hline
+	\end{tabular}
+	\footnotesize
+\end{table}
+
+\rev{For the aligned prediction files used in the dependence-aware diagnostic, directional accuracy remains close to the nominal balanced reference. Two-sided binomial tests were conducted using \(p_0=0.5\) and the observed majority-class rate of \(50.14\%\). None of the models differs significantly from either reference level (all \(p>0.32\)). Because these binomial tests treat asset-date observations as independent, Table~\ref{tab:moving_block_bootstrap} reports moving-block bootstrap diagnostics based on 10-date blocks. All 95\% bootstrap intervals include both the balanced 50\% reference and the observed majority-class benchmark.}
+
+\begin{table}[h]
+	\color{red}
+\caption{Moving-block bootstrap diagnostics for directional accuracy on the common sequential test subset.}
+	\label{tab:moving_block_bootstrap}
+	\setlength{\tabcolsep}{3pt}
+	\centering
+	\begin{tabular}{p{92pt}p{42pt}p{76pt}p{72pt}p{62pt}p{70pt}}
+		\hline
+		\textbf{Model} &
+		\(\boldsymbol{N}\) &
+		\textbf{Directional accuracy} &
+		\textbf{Bootstrap 95\% CI} &
+		\(\boldsymbol{p}\) \textbf{vs. 0.5} &
+		\(\boldsymbol{p}\) \textbf{vs. majority} \\
+		\hline
+		LSTM & 1,476 & 48.92\% & 45.66--51.22\% & 0.3320 & 0.2804 \\
+		Attention & 1,476 & 48.85\% & 45.39--52.03\% & 0.4748 & 0.4316 \\
+		XGBoost & 1,476 & 49.53\% & 46.00--52.17\% & 0.6312 & 0.5660 \\
+		Ensemble & 1,476 & 49.86\% & 46.14--53.05\% & 0.8340 & 0.7768 \\
+		Equal ensemble & 1,476 & 49.59\% & 45.94--52.71\% & 0.6908 & 0.6308 \\
+		Train-mean & 1,476 & 50.14\% & 46.61--52.78\% & 0.8816 & 0.8080 \\
+		Lagged OLS & 1,476 & 50.20\% & 47.43--52.85\% & 0.9476 & 1.0000 \\
+		\hline
+	\end{tabular}
+	\footnotesize
+\end{table}
+
+The ensemble obtains an \(R^2\) of \(-0.0072\) and a directional accuracy of \(49.86\%\), without a measurable improvement over the evaluated reference levels. Its numerically higher directional accuracy should not be interpreted as evidence of superiority over the constituent models. Paired tests comparing model-specific losses or prediction errors were not performed, and the differences in Table~\ref{tab:model_performance} are small. The defensible conclusion is therefore restricted to the evaluated experimental condition: under the selected chronological split, fixed hyperparameters, and common target subset, none of the four models provides evidence of predictive performance beyond the nominal directional benchmarks.
+
+This result contrasts with the preliminary leakage-contaminated configuration. In that configuration, using the contemporaneous price level as the target together with predictors mechanically related to it produced an XGBoost \(R^2\) of approximately \(0.96\). That value is not directly comparable with the corrected results because it corresponds to a different target definition and an invalid information set. The SHAP audit identified a concentrated dependence on target-related predictors, while the temporal audit established that those dependencies were not legitimate for forward prediction. After reformulating the target as the next-day logarithmic return and restricting the information set to predictors available by day \(t\), the apparent performance disappeared. This contrast supports the leakage diagnosis rather than a claim that the corrected models lost a valid economic signal.
+
+Table~\ref{tab:absolute_error_distribution} describes the distribution of absolute prediction errors on the same common sequential subset. Mean absolute errors range from 0.0422 to 0.0431, while median absolute errors range from 0.0323 to 0.0331. The 75th percentiles and maximum absolute errors are also similar across architectures. XGBoost records the lowest mean absolute error but the highest maximum absolute error, illustrating that model rankings may depend on the selected error summary.
+
+\begin{table}[h]
+	\caption{Distribution of absolute prediction errors on the common sequential test subset (\(N=1{,}476\)).}
+	\label{tab:absolute_error_distribution}
+	\setlength{\tabcolsep}{3pt}
+	\centering
+	\begin{tabular}{p{115pt}p{48pt}p{115pt}p{50pt}p{50pt}}
+		\hline
+		\textbf{Statistic} &
+		\textbf{LSTM} &
+		\textbf{Simplified attention} &
+		\textbf{XGBoost} &
+		\textbf{Ensemble} \\
+		\hline
+		
+		Mean &
+		0.0424 &
+		0.0431 &
+		0.0422 &
+		0.0423 \\
+		
+		Standard deviation &
+		0.0365 &
+		0.0370 &
+		0.0367 &
+		0.0367 \\
+		
+		Maximum &
+		0.2140 &
+		0.2216 &
+		0.2258 &
+		0.2186 \\
+		
+		Median &
+		0.0323 &
+		0.0331 &
+		0.0323 &
+		0.0327 \\
+		
+		75th percentile &
+		0.0594 &
+		0.0601 &
+		0.0595 &
+		0.0592 \\
+		\hline
+		
+	\end{tabular}
+	\footnotesize
+\end{table}
+
+The similarity of these descriptive distributions does not establish statistical equivalence or the absence of observation-level differences between models. Such conclusions would require paired loss comparisons or equivalence tests. The results show only that none of the evaluated configurations achieves a clear descriptive advantage across the reported error summaries.
+
+The methodological implication is consequently limited but relevant. Under the controlled null-signal condition and the one-day forecasting horizon, the evaluated architectures do not exhibit a detectable directional advantage over the nominal reference levels. Because no trading backtest is implemented, the results do not estimate alpha, Sharpe ratio, maximum drawdown, transaction-cost-adjusted returns, or monetary economic value.
+
+Figure~\ref{fig:fig2} presents the normalized asset trajectories for the two sectors, with each series indexed to 100 at the beginning of the observation period. These trajectories visualize the behavior produced by the controlled GARCH-like conditional-variance generator and its prespecified factor exposures; they do not represent historical market events. Figure~\ref{fig:fig2}~(a) shows the dispersion of the technology assets, arising from distinct idiosyncratic innovations combined with their shared exposure to VIX changes. The panel therefore illustrates the cross-asset heterogeneity embedded in the controlled benchmark and should not be interpreted as empirical evidence concerning publicly traded technology firms.
+
+\begin{figure}[h!]
+	\begin{center}
+		\includegraphics[width=17cm]{Fig2.jpg}
+	\end{center}
+\caption{Normalized benchmark asset trajectories by sector, with a base value of 100: (a) technology assets and (b) energy assets, 2021--2026.}\label{fig:fig2}
+\end{figure}
+
+Figure~\ref{fig:fig2}~(b) shows comparable dispersion among the energy assets, generated by distinct idiosyncratic innovations and their shared exposure to WTI changes. The asset identifiers are analytical labels used to distinguish the benchmark series and do not correspond to real companies or historical observations.
+
+\subsection{Technology Sector: XGBoost Feature-Importance Profile}
+\label{subsec:technology_importance}
+
+The technology-sector analysis uses two sample sizes for different analytical purposes. The raw technology test partition contains 975 asset-date rows, corresponding to 195 dates for each of the five technology assets. After complete-case filtering, the effective technology sample used for sector-specific XGBoost interpretation contains 970 observations. The comparison among architectures is instead based on 820 aligned sequential observations, corresponding to 164 prediction windows for each technology asset. Maintaining this distinction prevents results obtained from individual asset-date observations from being conflated with those based on 30-day sequences.
+
+Table~\ref{tab:technology_xgb_importance} reports selected predictor-importance values from the fitted XGBoost model. The largest reported importance corresponds to CPIAUCSL at \(8.67\%\), followed by DCOILWTICO at \(7.63\%\), FEDFUNDS at \(7.58\%\), and VIXCLS at \(7.23\%\). No individual predictor accounts for more than \(9\%\) of the model's total native feature importance. By contrast, Low\_Lag1 receives no importance in the fitted tree ensemble.
+
+\begin{table}[h]
+	\caption{Selected native XGBoost feature-importance values for the complete-case technology-sector test sample (\(N=970\)).}
+	\label{tab:technology_xgb_importance}
+	\setlength{\tabcolsep}{3pt}
+	\centering
+	\begin{tabular}{p{105pt}p{95pt}p{125pt}}
+		\hline
+		\textbf{Predictor} &
+		\textbf{Importance (\%)} &
+		\textbf{Category} \\
+		\hline
+		
+		CPIAUCSL &
+		8.67 &
+		Economic indicator \\
+		
+		DCOILWTICO &
+		7.63 &
+		Economic indicator \\
+		
+		FEDFUNDS &
+		7.58 &
+		Economic indicator \\
+		
+		VIXCLS &
+		7.23 &
+		Economic indicator \\
+		
+		Close\_Lag5 &
+		6.96 &
+		Lagged closing price \\
+		
+		UNRATE &
+		6.94 &
+		Economic indicator \\
+		
+		Close\_Lag1 &
+		4.88 &
+		Lagged closing price \\
+		
+		Low\_Lag1 &
+		0.00 &
+		Lagged market variable \\
+		\hline
+		
+	\end{tabular}
+	\footnotesize
+\end{table}
+
+The relatively dispersed importance profile should be interpreted cautiously. Native tree-based importance can be affected by correlations among predictors, available split points, tree depth, regularization, and random initialization. Correlated predictors may divide importance among themselves or substitute for one another, whereas an irrelevant predictor may receive nonzero importance through sample-specific tree splits. Conversely, a zero value indicates only that the fitted model did not use that predictor in its selected splits.
+
+The lagged closing-price variables also require a restricted interpretation. Close\_Lag5 and Close\_Lag1 receive importance values of \(6.96\%\) and \(4.88\%\), respectively, but their inclusion in the fitted trees does not establish that lagged price levels predict next-day returns. Because the technology assets are pooled, price-level variables may partially distinguish assets or capture scale-related structure rather than provide transferable return information.
+
+Accordingly, the native XGBoost importance profile does not prove the absence of predictive structure, nor does it establish the stability of the identified dependencies. The evidence supports a narrower conclusion: in this fitted configuration, XGBoost does not rely on a single overwhelmingly dominant predictor, and the observed importance allocation does not translate into out-of-sample predictive performance on the common sequential subset. SHAP-based attribution is analyzed separately because native XGBoost importance and mean absolute SHAP importance are distinct quantities and should not be interpreted interchangeably. \rev{The divergence between CPIAUCSL leading the native XGBoost importance profile and UNRATE leading the mean-absolute SHAP ranking is therefore not contradictory. Native feature importance summarizes how predictors are used during tree construction, whereas mean-absolute SHAP summarizes average contribution to fitted predictions; correlated or substitutable predictors can consequently distribute importance differently under the two summaries.}
+
+\subsection{Controlled Sector--Factor Relationships and Sector-Specific Performance}
+\label{subsec:sector_performance}
+
+The controlled benchmark contains prespecified contemporaneous relationships between sector returns and selected economic indicators. Table~\ref{tab:sector_factor_correlations} summarizes the correlations between daily factor changes and sector-level returns. VIX changes are strongly associated with technology returns (\(r=-0.82\)) but only weakly associated with energy returns (\(r=0.06\)). Conversely, WTI changes are strongly associated with energy returns (\(r=0.84\)) and only weakly associated with technology returns (\(r=-0.04\)). The remaining factors exhibit correlations below \(0.06\) in absolute value for both sectors.
+
+\begin{table}[h]
+	\caption{Contemporaneous correlations between daily factor changes and sector returns in the controlled benchmark.}
+	\label{tab:sector_factor_correlations}
+	\setlength{\tabcolsep}{3pt}
+	\centering
+	\begin{tabular}{p{165pt}p{85pt}p{85pt}}
+		\hline
+		\textbf{Economic indicator} &
+		\textbf{Technology} &
+		\textbf{Energy} \\
+		\hline
+		
+		VIX index &
+		-0.82 &
+		0.06 \\
+		
+		WTI crude oil price &
+		-0.04 &
+		0.84 \\
+		
+		S\&P 500 index &
+		-0.01 &
+		0.05 \\
+		
+		Federal funds rate &
+		0.00 &
+		0.03 \\
+		
+		Unemployment rate &
+		-0.01 &
+		-0.02 \\
+		\hline
+		
+	\end{tabular}
+	\footnotesize
+\end{table}
+
+\rev{The strong VIX--technology and WTI--energy relationships occur contemporaneously by construction. Their recovery shows that the analytical procedure detects the prespecified sector-factor structure, but it does not demonstrate that either factor predicts returns at the \(t\rightarrow t+1\) horizon.}
+
+Sector-specific predictive results are reported in Table~\ref{tab:sector_model_performance}. The technology subset contains 820 sequential observations, whereas the energy subset contains 656, jointly reproducing the common comparison sample of \(N=1{,}476\). Across the technology sector, \(R^2\) ranges from \(-0.0442\) for the simplified attention model to \(0.0035\) for the LSTM. Directional accuracy ranges from \(48.54\%\) to \(51.46\%\). In the energy sector, \(R^2\) ranges from \(-0.0299\) for the LSTM to \(0.0079\) for XGBoost, while directional accuracy ranges from \(46.04\%\) to \(50.76\%\).
+
+\begin{table}[h]
+	\caption{Predictive performance by sector on the common sequential test subset. \rev{These sector-level values are diagnostic summaries under fixed model configurations and should not be interpreted as an optimized architecture ranking.}}
+	\label{tab:sector_model_performance}
+	\setlength{\tabcolsep}{3pt}
+	\centering
+	\begin{tabular}{p{65pt}p{92pt}p{35pt}p{45pt}p{45pt}p{45pt}p{105pt}}
+		\hline
+		\textbf{Sector} &
+		\textbf{Model} &
+		\(\boldsymbol{N}\) &
+		\textbf{MAE} &
+		\textbf{RMSE} &
+		\(\boldsymbol{R^2}\) &
+		\textbf{Directional accuracy} \\
+		\hline
+		
+		Technology &
+		LSTM &
+		820 &
+		0.0475 &
+		0.0632 &
+		0.0035 &
+		51.22\% \\
+		
+		Technology &
+		Simplified attention &
+		820 &
+		0.0489 &
+		0.0647 &
+		-0.0442 &
+		49.51\% \\
+		
+		Technology &
+		XGBoost &
+		820 &
+		0.0478 &
+		0.0637 &
+		-0.0106 &
+		48.54\% \\
+		
+		Technology &
+		Ensemble &
+		820 &
+		0.0476 &
+		0.0635 &
+		-0.0052 &
+		51.46\% \\
+		\hline
+		
+		Energy &
+		LSTM &
+		656 &
+		0.0359 &
+		0.0452 &
+		-0.0299 &
+		46.04\% \\
+		
+		Energy &
+		Simplified attention &
+		656 &
+		0.0358 &
+		0.0449 &
+		-0.0171 &
+		48.02\% \\
+		
+		Energy &
+		XGBoost &
+		656 &
+		0.0352 &
+		0.0444 &
+		0.0079 &
+		50.76\% \\
+		
+		Energy &
+		Ensemble &
+		656 &
+		0.0357 &
+		0.0448 &
+		-0.0127 &
+		47.87\% \\
+		\hline
+		
+	\end{tabular}
+	\footnotesize
+\end{table}
+
+The small positive \(R^2\) values obtained by the technology LSTM and energy XGBoost are close to zero and do not constitute evidence of a practically meaningful predictive advantage. Similarly, directional accuracies slightly above \(50\%\) should not be interpreted as statistically significant because sector-specific directional tests are not reported. The sector-level results are therefore consistent with the aggregate finding of no detectable predictive advantage, but they do not independently prove equivalence to chance.
+
+The lower MAE and RMSE values observed for the energy sector should also not be interpreted as evidence that energy returns are easier to predict. Scale-dependent errors are affected by the dispersion of the target variable, and the energy series exhibit a different return scale from the technology series. Comparisons of MAE and RMSE are most informative among models evaluated within the same sector rather than directly between sectors.
+
+Figure~\ref{fig:fig3} presents the 30-day rolling annualized volatility for the technology and energy sectors. Its fluctuations reflect the time-varying variance generated by the controlled GARCH-like conditional-variance process and the sectors' differentiated factor exposures. The figure serves as a diagnostic visualization of the benchmark structure and should not be interpreted as a reconstruction of historical volatility episodes.
+
+\begin{figure}[h!]
+	\begin{center}
+		\includegraphics[width=17cm]{Fig3.jpg}
+	\end{center}
+\caption{Thirty-day rolling annualized volatility for the technology and energy sectors of the controlled benchmark, 2021--2026.}\label{fig:fig3}
+\end{figure}
+
+\subsection{SHAP-Based Audit of Model Dependencies}
+\label{subsec:shap_audit}
+
+SHAP analysis is applied to the fitted XGBoost model using \texttt{TreeExplainer}, which provides an efficient additive decomposition of predictions for tree-based ensembles~\citep{Lundberg2017shap}. In this study, SHAP is used to identify the predictors on which the model depends, not as an automated test of temporal validity. A large mean absolute SHAP value indicates that a predictor contributes substantially to the model output, but determining whether that contribution is methodologically legitimate requires an independent inspection of the predictor's temporal availability and its relationship with the target.
+
+Before presenting the attribution results, Figure~\ref{fig:fig4} characterizes the distributions of daily sector-level returns used in the analysis. Figure~\ref{fig:fig4}(a) presents the technology-sector return distribution. Its location and dispersion reflect the combined influence of the controlled GARCH-like conditional-variance process, the prespecified VIX exposure, and asset-specific innovations. These distributional characteristics provide context for interpreting the magnitude of the model attributions and should not be interpreted as empirical properties of historical technology-sector returns.
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=\linewidth]{Fig4.jpg}
+	\caption{Daily return distributions for the controlled benchmark: (a) technology-sector assets and (b) energy-sector assets, 2021--2026.}
+	\label{fig:fig4}
+\end{figure}
+
+Figure~\ref{fig:fig4}(b) presents the corresponding distribution of daily returns for the energy-sector benchmark assets. Its location and dispersion reflect the combined effect of the controlled GARCH-like conditional-variance process, the prespecified WTI exposure, and asset-specific innovations. The comparison between panels demonstrates that the benchmark preserves sector-specific distributional heterogeneity under controlled conditions; it does not establish that equivalent return distributions or factor relationships exist in historical financial markets.
+
+Table~\ref{tab:main_xgb_shap} reports the SHAP ranking for the main leakage-free XGBoost experiment. The table is computed on the complete-case tabular test sample using the original 18 predictors and \texttt{TreeExplainer}, without subsampling or information from the controlled signal-injection experiment.
+
+\begin{table}[h]
+	\caption{Main leakage-free XGBoost SHAP ranking computed on the complete-case tabular test sample (\(N=1{,}746\)) using the original 18 predictors.}
+	\label{tab:main_xgb_shap}
+	\setlength{\tabcolsep}{4pt}
+	\centering
+	\begin{tabular}{p{35pt}p{185pt}p{105pt}p{85pt}}
+		\hline
+		\textbf{Rank} & \textbf{Predictor} & \textbf{Mean \(|\mathrm{SHAP}|\)} & \textbf{SHAP share} \\
+		\hline
+		1 & UNRATE & 0.002379 & 20.79\% \\
+		2 & VIXCLS & 0.001487 & 13.00\% \\
+		3 & Vol\_20 & 0.001478 & 12.91\% \\
+		4 & CPIAUCSL & 0.001243 & 10.86\% \\
+		5 & Volume\_Lag1 & 0.001034 & 9.03\% \\
+		6 & Return\_Lag5 & 0.000704 & 6.15\% \\
+		7 & SP500 & 0.000624 & 5.45\% \\
+		8 & Return\_Lag1 & 0.000561 & 4.90\% \\
+		9 & Close\_Lag5 & 0.000393 & 3.44\% \\
+		10 & FEDFUNDS & 0.000306 & 2.68\% \\
+		11--18 &Remaining eight predictors (combined) & 0.001235 & 10.79\% \\
+		\hline
+	\end{tabular}
+	\noindent\footnotesize{\textit{Note:} The value reported for the remaining eight predictors is the sum of their predictor-level mean absolute SHAP values and normalized contributions.}
+\end{table}
+
+The XGBoost SHAP analysis shows small absolute contributions and does not identify a clearly dominant variable in the fitted model. UNRATE, VIXCLS, Vol\_20, CPIAUCSL, and Volume\_Lag1 appear among the predictors with the largest mean absolute SHAP values, although their magnitudes are small relative to the scale of the returns. This evidence is consistent with the near-random predictive performance observed in the main experiment, but it does not independently demonstrate the complete absence of a signal. A weak or dispersed importance profile may also reflect noise, collinearity among predictors, limitations of the model configuration, or a genuine dependency that is too weak to be detected under the evaluated protocol.
+
+Figure~\ref{fig:fig5} complements this interpretation by presenting the individual annualized volatility of the benchmark assets. In the technology panel, Figure~\ref{fig:fig5}(a), the assets exhibit relatively similar volatility patterns while retaining differences among individual series. This variation is a property of the controlled data-generating process and should not be interpreted as historical evidence concerning real companies. Each trajectory combines a common sectoral exposure to VIX changes with distinct idiosyncratic innovations.
+
+
+\begin{figure}[h!]
+	\begin{center}
+		\includegraphics[width=17cm]{Fig5.jpg}
+	\end{center}
+\caption{Annualized volatility of the controlled benchmark assets: (a) technology sector and (b) energy sector, 2021--2026.}\label{fig:fig5}
+\end{figure}
+
+In the energy sector, Figure~\ref{fig:fig5}(b) shows greater dispersion. This behavior reflects the combination of the prespecified WTI exposure, asset-specific idiosyncratic innovations, and the distinct trajectories produced by the asset-level seeds. For both sectors, the figure serves as an experimental control demonstrating that the benchmark contains within-sector heterogeneity; it does not provide external empirical validation.
+
+The SHAP magnitudes should be interpreted cautiously in relation to the scale and variability of the predicted returns. Mean absolute SHAP contributions on the order of \(0.001\) to \(0.002\) indicate that no predictor exerts an overwhelmingly large influence on the fitted XGBoost outputs, but they do not prove the absence of predictive structure. Small attribution values may also result from a genuinely weak signal, predictor collinearity, limitations of the selected model configuration, the background-data specification used by the explainer, or a dependency that the fitted XGBoost model does not adequately represent.
+
+The controlled signal-recovery experiment therefore provides an independent validation condition. By introducing a known dependency at the \(t\rightarrow t+1\) horizon, the experiment assesses whether predictive performance improves and the mean absolute SHAP attribution assigned to the injected predictor increases monotonically on average across signal-intensity levels and repeated seeds.
+
+\subsection{Scope of Inference and Methodological Implications}
+\label{subsec:results_inference}
+
+The results establish a clear distinction between contemporaneous dependence and forward predictive information. The recovery of the prespecified sector--factor relationships confirms that the analytical pipeline can identify dependencies embedded in the controlled benchmark. In contrast, the next-day forecasting experiment shows that these contemporaneous relationships do not automatically translate into predictive performance at the \(t\rightarrow t+1\) horizon. This distinction constitutes a central methodological result: the pipeline identifies observable structure without misclassifying it as evidence of future return predictability.
+
+Figure~\ref{fig:fig6} illustrates this distinction. In the technology panel, Figure~\ref{fig:fig6}(a), standardized returns exhibit the negative contemporaneous relationship with VIX changes specified by the data-generating process. This relationship validates the recovery of an embedded sector-factor exposure; it does not indicate that VIX changes predict technology returns at the \(t\rightarrow t+1\) horizon.
+
+\begin{figure}[h!]
+	\begin{center}
+		\includegraphics[width=17cm]{Fig6.jpg}
+	\end{center}
+\caption{Prespecified contemporaneous sector--factor relationships in the controlled benchmark: (a) technology-sector returns and standardized VIX changes and (b) energy-sector returns and standardized WTI changes.}\label{fig:fig6}
+\end{figure}
+
+In the energy panel, Figure~\ref{fig:fig6}(b), standardized returns exhibit the positive contemporaneous relationship with WTI changes specified by the data-generating process. Together with the technology--VIX relationship, this result confirms that the analytical procedure recovers the prespecified sector-factor structure. However, both relationships occur at day \(t\) and therefore represent contemporaneous dependencies rather than predictive signals at the \(t\rightarrow t+1\) horizon.
+
+This distinction between dependency recovery and forward prediction is central to the audit framework. A pipeline may correctly identify a relationship embedded in the controlled benchmark without obtaining a predictive advantage at the operational forecasting horizon. In the present design, the technology--VIX and energy--WTI exposures function as internal plausibility controls, whereas the forecasting task evaluates whether information available by the close of day \(t\) predicts the return at \(t+1\). The near-zero \(R^2\) values and directional accuracies close to the reference levels indicate that the fitted models do not convert the contemporaneous sector-factor structure into detectable next-day predictive performance under the evaluated protocol.
+
+The directional results consequently provide no empirical basis for constructing a rebalancing or allocation rule from the model outputs. Establishing operational economic value would require a separate evaluation involving historical market observations, repeated out-of-sample periods, transaction costs, liquidity constraints, slippage, portfolio turnover, risk-adjusted metrics, and appropriate financial baselines. These elements are outside the present experimental design.
+
+The controlled nature of the benchmark also defines the external scope of the findings. The sector-factor relationships are prespecified and therefore validate the ability of the pipeline to recover known dependencies; they do not establish that relationships of the same magnitude or stability exist in historical markets. Evaluating their persistence across market regimes and their viability after implementation costs would require an independent empirical study.
+
+The contribution of the present study is therefore an auditable separation among three analytically distinct conditions: leakage-induced performance, contemporaneous dependency without forward predictive advantage, and recovery of a properly aligned signal introduced at the \(t\rightarrow t+1\) horizon. The objective is not to claim that sector returns are generally predictable, but to demonstrate how a controlled pipeline can distinguish spurious performance from legitimate dependency recovery and horizon-aligned predictive structure.
+
+\subsection{Pipeline Validation through Controlled Signal Injection}
+\label{subsec:signal_injection_results}
+
+The preceding analyses establish two distinct findings. First, the evaluated models do not identify a detectable predictive advantage in the baseline \(t\rightarrow t+1\) task. Second, the dependency analysis recovers the contemporaneous sector-factor relationships prespecified in the controlled benchmark. The signal-injection experiment evaluates whether XGBoost and SHAP recover a known predictive dependency when it is introduced at the correct forecasting horizon.
+
+The validation experiment uses the standardized first difference of the controlled VIX indicator observed at day \(t\) as the carrier of a dependency affecting the target at day \(t+1\). The resulting variable, \(\mathrm{VIXchg}_t\), extends the original predictor vector from 18 to 19 variables. Six signal-intensity levels, ranging from \(\gamma=0\) to \(\gamma=0.100\), are evaluated using 10 seed-matched repetitions per level. Within each seed, the same noise realizations and model random state are retained across signal intensities. The reported SHAP percentages and rankings are calculated within the complete 19-predictor space.
+
+Table~\ref{tab:signal_recovery} reports the mean and sample standard deviation of \(R^2\), directional accuracy, normalized mean absolute SHAP importance, and SHAP rank across the 10 repetitions conducted at each signal-intensity level.
+
+\begin{table}[h]
+	\caption{Recovery of the controlled dependency
+		\(\mathrm{VIXchg}_t\rightarrow y_{t+1}\) across 10 seed-matched
+		repetitions per signal-intensity level using 19 predictors.}
+	\label{tab:signal_recovery}
+	\setlength{\tabcolsep}{3pt}
+	\centering
+	\begin{tabular}{p{38pt}p{88pt}p{105pt}p{140pt}p{72pt}}
+		\hline
+		\(\boldsymbol{\gamma}\) &
+		\(\boldsymbol{R^2}\) \textbf{(mean \(\boldsymbol{\pm}\) SD)} &
+		\textbf{Directional accuracy (mean \(\boldsymbol{\pm}\) SD)} &
+		\textbf{Normalized SHAP importance (mean \(\boldsymbol{\pm}\) SD)} &
+		\textbf{Mean SHAP rank} \\
+		\hline
+		
+		0.000 &
+		\(-0.0028\pm0.0014\) &
+		\(49.59\%\pm0.97\%\) &
+		\(4.08\%\pm1.79\%\) &
+		11.1 of 19 \\
+		
+		0.005 &
+		\(0.0072\pm0.0042\) &
+		\(53.62\%\pm1.23\%\) &
+		\(27.57\%\pm5.04\%\) &
+		1.0 of 19 \\
+		
+		0.010 &
+		\(0.0587\pm0.0168\) &
+		\(58.87\%\pm1.99\%\) &
+		\(43.76\%\pm5.12\%\) &
+		1.0 of 19 \\
+		
+		0.020 &
+		\(0.2623\pm0.0230\) &
+		\(67.26\%\pm1.72\%\) &
+		\(56.84\%\pm2.76\%\) &
+		1.0 of 19 \\
+		
+		0.050 &
+		\(0.7043\pm0.0141\) &
+		\(82.04\%\pm1.05\%\) &
+		\(75.77\%\pm3.17\%\) &
+		1.0 of 19 \\
+		
+		0.100 &
+		\(0.9031\pm0.0042\) &
+		\(90.92\%\pm0.84\%\) &
+		\(83.04\%\pm2.49\%\) &
+		1.0 of 19 \\
+		\hline
+		
+	\end{tabular}
+	\footnotesize
+\end{table}
+
+Under the negative-control condition, \(\gamma=0\), the injected predictor contains no forward dependency. Mean \(R^2\) remains close to zero at \(-0.0028\), directional accuracy reaches \(49.59\%\), and \(\mathrm{VIXchg}_t\) receives a normalized SHAP importance of \(4.08\%\) with a mean rank of 11.1 among the 19 predictors. These values reproduce the expected null-signal behavior and show that the candidate predictor is not systematically prioritized when its coefficient is zero.
+
+At \(\gamma=0.005\), \(\mathrm{VIXchg}_t\) becomes the highest-ranked predictor across the seeded repetitions, with a mean rank of 1.0 and normalized SHAP importance of \(27.57\%\). Directional accuracy increases to \(53.62\%\), whereas mean \(R^2\) remains comparatively small at \(0.0072\). This result indicates that the attribution procedure identifies the injected predictor at a signal intensity for which the proportion of explained variance is still limited.
+
+Further increases in signal intensity produce monotonic improvements in all three mean recovery indicators. Between \(\gamma=0.010\) and \(\gamma=0.100\), mean \(R^2\) increases from \(0.0587\) to \(0.9031\), directional accuracy rises from \(58.87\%\) to \(90.92\%\), and normalized SHAP importance increases from \(43.76\%\) to \(83.04\%\). The injected predictor retains a mean rank of 1.0 at every nonzero intensity level.
+
+The seed-matched design also shows that the monotonic progression is not produced by assigning unrelated noise realizations to the different intensity levels. Within each seed, the noise vectors and model random state remain fixed while only the magnitude of the injected dependency changes. The observed progression can therefore be attributed more directly to increasing signal strength under the controlled protocol.
+
+The joint increase in predictive performance and attribution magnitude provides an internal validation of the audited pipeline. Under the negative-control condition, the candidate predictor is not prioritized. Once a horizon-aligned dependency is introduced, XGBoost identifies its carrier variable, and SHAP assigns it progressively greater importance as the signal becomes stronger. The null predictive result in the main experiment therefore cannot be attributed solely to an implementation that is incapable of recovering the specific type of dependency evaluated in this validation.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Discussion}
+\label{sec:discussion}
+
+After removing target-related information leakage and aligning all predictions on the same sequential subset, none of the four evaluated predictive configurations provides evidence of next-day return predictability under the specified protocol. This finding is consistent with the prespecified data-generating process: the controlled benchmark incorporates persistent time-varying volatility, asset-specific stochastic trajectories, and contemporaneous sector-factor exposures, but it does not contain a deliberately introduced conditional-mean dependency at the \(t\rightarrow t+1\) horizon. The null result should therefore be interpreted as consistency among the benchmark, target definition, information set, and forecasting horizon rather than as a modeling failure.
+
+SHAP contributes to this interpretation by revealing the predictors underlying the fitted XGBoost outputs~\citep{Lundberg2017shap}. However, an attribution method cannot independently determine whether a dependency is temporally legitimate. Predictor importance must be interpreted jointly with target alignment, prediction origin, and information availability. Similarly, the numerical proximity of the evaluated configurations does not establish statistical equivalence because paired loss-comparison or equivalence tests were not implemented for the main experiment.
+
+Comparisons with studies reporting high \(R^2\) values require careful consideration of their experimental definitions. Forecasting performance may change substantially depending on whether the target is a contemporaneous price level or a future return, the selected prediction horizon, temporal-validation protocol, predictor availability, and effective evaluation sample. Hybrid approaches combining decomposition, dimensionality reduction, sequential learning, and sentiment information may improve performance when they extract legitimate predictive structure~\citep{Srijiranon2022}. Nevertheless, increasingly elaborate feature engineering also increases the need to verify that preprocessing, predictor construction, model selection, and sample alignment do not incorporate future information.
+
+This issue is directly observable in the audited pipeline. The preliminary configuration produces an XGBoost \(R^2\) of approximately \(0.96\) when the contemporaneous closing-price level is used as the target together with predictors mechanically related to it. After redefining the task as next-day return forecasting and restricting the predictor set to information available by the close of day \(t\), the apparent performance disappears. This contrast demonstrates why a high predictive metric should not automatically be interpreted as evidence of economic predictability. Target definition, temporal availability, evaluation baselines, effective sample size, and result traceability must first be verified.
+
+The recovered sector-factor relationships perform a different analytical function. The negative technology--VIX and positive energy--WTI associations are prespecified components of the controlled generator. Their recovery confirms that the analytical procedure detects known contemporaneous structure, but it does not establish equivalent relationships in historical markets or demonstrate forward predictability. This distinction is particularly important for attention-based models: the capacity to represent complex dependencies does not replace temporal validation or independent economic interpretation~\citep{Zhang2022transformer}. Moreover, the simplified attention model evaluated in this study lacks explicit positional encoding and should not be interpreted as a complete Transformer implementation.
+
+The controlled signal-injection experiment strengthens the internal validation. A known linear dependency is introduced between the standardized first difference of VIX at day \(t\) and the controlled target at day \(t+1\). Across 10 seed-matched repetitions per signal-intensity level, mean \(R^2\) increases from \(-0.0028\) under the negative control to \(0.9031\) at the highest intensity. Over the same progression, the normalized mean absolute SHAP importance assigned to the injected predictor increases monotonically from \(4.08\%\) to \(83.04\%\), and the predictor obtains a mean rank of 1.0 at every nonzero intensity level.
+
+The seed-matched design strengthens this interpretation because the noise realizations and XGBoost random state remain fixed across intensity levels within each seed. Consequently, the monotonic mean progression cannot be attributed to assigning unrelated noise realizations to different values of \(\gamma\). The agreement between predictive recovery and attribution magnitude indicates that the pipeline detects the specific horizon-aligned dependency for which it is tested. It also supports the interpretation that the null result in the main experiment reflects the absence of an embedded forward signal rather than an implementation that is inherently incapable of recovering the evaluated type of predictive structure.
+
+This interpretation is consistent with financial explainability research emphasizing that attribution methods improve model inspection but do not replace validation of the forecasting design or its economic context~\citep{Zhang2026bond}. In the present study, SHAP serves two complementary audit functions: it identifies the target-related dependencies responsible for the preliminary leakage-contaminated result and verifies that the signal-carrying predictor gains importance as its known forward effect increases. Neither function converts predictive attribution into causal or universally valid financial evidence.
+
+The contribution of this study lies in the explicit separation of three conditions that are frequently conflated in financial machine learning: spurious performance produced by target-related leakage, null predictive performance under a correctly aligned forecasting task, and recovery of a known dependency introduced at the intended forecasting horizon. This separation shifts the emphasis from architecture ranking to methodological traceability. Because reported model rankings may change across datasets, targets, forecasting horizons, and evaluation criteria~\citep{Shobayo2025,Zhang2024review}, the findings support an audit framework rather than a claim of universal model superiority.
+
+Several limitations define the scope of these conclusions. The study uses a controlled benchmark and a single 70/15/15 chronological partition, so it does not evaluate external validity across historical markets, alternative forecast origins, structural breaks, or changing market regimes. The generator uses a simplified GARCH-like conditional-variance process, Gaussian innovations, bounded returns, generic business days, and controlled economic indicators; it does not reproduce market microstructure, indicator-release delays, revisions, liquidity, or institutional trading behavior. \rev{The 10-seed neural sensitivity check, simple statistical baselines, equal-weight ensemble check, and moving-block bootstrap diagnostics strengthen the null-signal interpretation but remain conditional on the same controlled benchmark and single chronological test period.} The neural models retain their final epoch, whereas XGBoost uses validation-based early stopping, and no systematic hyperparameter search or common checkpoint-selection protocol is implemented. The attention model lacks positional encoding and a complete Transformer feed-forward block. \rev{The evaluated baselines are deliberately minimal and do not replace a full comparison against ARIMA, ETS, predictive GARCH, trading-rule, or portfolio-allocation benchmarks.} Transaction costs, liquidity constraints, and risk-adjusted trading metrics are also excluded. Finally, the signal-injection validation uses an explicitly supplied linear dependency under Gaussian noise and does not establish equivalent recovery for nonlinear interactions, regime-localized effects, omitted predictors, or alternative architectures.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Conclusion}
+\label{sec:conclusion}
+
+This study demonstrates that the apparent predictability of a financial machine learning pipeline can change fundamentally after target-related information leakage is removed. On the common sequential test subset (\(N=1{,}476\)), the LSTM, simplified attention model, XGBoost, and fixed-weight ensemble obtain \(R^2\) values between \(-0.0364\) and \(-0.0052\) and directional accuracies between \(48.85\%\) and \(49.86\%\). \rev{The robustness analysis shows that this null-signal interpretation is stable across 10 neural-network seeds and under moving-block bootstrap diagnostics that preserve both local date ordering and the cross-sectional grouping of assets observed on the same date. The simple training-mean and lagged-return baselines also remain close to zero explanatory power.} These results are consistent with the null-signal condition defined by the controlled benchmark.
+
+The principal contribution is an auditable distinction among leakage-induced performance, recovery of contemporaneous sector-factor structure, and recovery of a correctly aligned predictive dependency. Explicit sample accounting separates the raw tabular test partition (\(N=1{,}755\)), the complete-case tabular sample used for XGBoost/SHAP analysis (\(N=1{,}746\)), and the sequential subset used for cross-model comparison. In the positive-control experiment, XGBoost recovers the dependency introduced between the standardized first difference of VIX at day \(t\) and the target at day \(t+1\). Across 10 seed-matched repetitions per intensity level, mean \(R^2\) increases from \(-0.0028\) to \(0.9031\), while the normalized SHAP importance of the injected predictor increases from \(4.08\%\) to \(83.04\%\). The combined evidence shows that the pipeline can distinguish a spurious result and a null-signal condition from a deliberately supplied, horizon-aligned signal.
+
+Future work should evaluate the audit framework on historical market datasets using repeated temporal partitions, broader dependence-robust comparisons, and established financial baselines. Extending the recovery experiments to nonlinear and regime-dependent signals, together with operational evaluation under transaction costs and market constraints, would determine how the methodological findings transfer to empirical financial forecasting.
+
+\section*{Conflict of Interest Statement}
+
+The authors declare that the research was conducted in the absence of any commercial or financial relationships that could be construed as a potential conflict of interest.
+
+\section*{Author Contributions}
+
+Conceptualization, I.O.-G., W.V.-C., and A.M.-N.; methodology, I.O.-G. and W.V.-C.; software, W.V.-C.; validation, I.O.-G., W.V.-C., and J.B.-M.; formal analysis, I.O.-G., W.V.-C., and J.B.-M.; investigation, I.O.-G., A.M.-N., P.S.-L., J.B.-M., and W.V.-C.; data curation, I.O.-G. and W.V.-C.; writing---original draft preparation, I.O.-G. and W.V.-C.; writing---review and editing, I.O.-G., A.M.-N., P.S.-L., J.B.-M., and W.V.-C.; visualization, I.O.-G. and W.V.-C.; supervision, W.V.-C.; project administration, W.V.-C. All authors have read and agreed to the published version of the manuscript.
+
+
+\section*{Funding}
+
+This research received no external funding.
+
+\section*{Acknowledgments}
+
+The authors have no additional acknowledgments to declare.
+
+\section*{Generative AI Statement}
+
+\rev{Generative AI tools were used to assist with language editing, code inspection, and consistency checks during manuscript preparation. The authors reviewed and verified all analyses, outputs, interpretations, and final text, and remain responsible for the content of the manuscript.}
+
+\section*{Data Availability Statement}
+
+The financial benchmark analyzed in this study was generated through the controlled data-generating process described in the manuscript and does not contain observations from real companies or historical financial records. \rev{A reproducibility package containing the data generator, preprocessing scripts, model-training scripts, evaluation scripts, robustness-analysis scripts, configuration parameters, random seeds, generated datasets, and derived analytical outputs has been prepared for public deposit. The final submission version must report the permanent repository URL or DOI in this statement.}
+
+\section*{Ethics Statement}
+
+Ethical review and approval were not required because this study used exclusively computer-generated financial benchmark data. The research did not involve human participants, personal data, identifiable information, or direct interaction with individuals. Therefore, informed consent was not applicable.
+
+
+\bibliographystyle{Frontiers-Harvard} %  Many Frontiers journals use the Harvard referencing system (Author-date), to find the style and resources for the journal you are submitting to: https://zendesk.frontiersin.org/hc/en-us/articles/360017860337-Frontiers-Reference-Styles-by-Journal. For Humanities and Social Sciences articles please include page numbers in the in-text citations 
+%\bibliographystyle{Frontiers-Vancouver} % Many Frontiers journals use the numbered referencing system, to find the style and resources for the journal you are submitting to: https://zendesk.frontiersin.org/hc/en-us/articles/360017860337-Frontiers-Reference-Styles-by-Journal
+\bibliography{test}
+
+%%% Make sure to upload the bib file along with the tex file and PDF
+%%% Please see the test.bib file for some examples of references
+
+
+
+%%% If you don't add the figures in the LaTeX files, please upload them when submitting the article.
+%%% Frontiers will add the figures at the end of the provisional pdf automatically
+%%% The use of LaTeX coding to draw Diagrams/Figures/Structures should be avoided. They should be external callouts including graphics.
+
+\end{document}

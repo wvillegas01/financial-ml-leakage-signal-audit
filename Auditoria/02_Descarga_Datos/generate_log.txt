@@ -1,0 +1,186 @@
+[2026-08-04 20:06:18] ======================================================================
+[2026-08-04 20:06:18] GENERACIÓN DE DATOS SINTÉTICOS REALISTAS
+[2026-08-04 20:06:18] Fecha/Hora: 2026-08-04 20:06:18
+[2026-08-04 20:06:18] Período: 2021-08-05 a 2026-08-04
+[2026-08-04 20:06:18] ======================================================================
+[2026-08-04 20:06:18] Generando datos SECTOR TECNOLOGÍA...
+[2026-08-04 20:06:18]   ✓ AAPL: 1304 registros
+[2026-08-04 20:06:18]   ✓ MSFT: 1304 registros
+[2026-08-04 20:06:18]   ✓ NVDA: 1304 registros
+[2026-08-04 20:06:18]   ✓ GOOGL: 1304 registros
+[2026-08-04 20:06:18]   ✓ TSLA: 1304 registros
+[2026-08-04 20:06:18] ✓ Guardado: tech_prices_raw.csv (6520 registros)
+[2026-08-04 20:06:18] Generando datos SECTOR ENERGÍA...
+[2026-08-04 20:06:18]   ✓ CVX: 1304 registros
+[2026-08-04 20:06:18]   ✓ COP: 1304 registros
+[2026-08-04 20:06:18]   ✓ XLE: 1304 registros
+[2026-08-04 20:06:18]   ✓ MPC: 1304 registros
+[2026-08-04 20:06:18] ✓ Guardado: energy_prices_raw.csv (5216 registros)
+[2026-08-04 20:06:18] Generando datos económicos FRED...
+[2026-08-04 20:06:18]   ✓ DCOILWTICO
+[2026-08-04 20:06:18]   ✓ DHHNGSP
+[2026-08-04 20:06:18]   ✓ VIXCLS
+[2026-08-04 20:06:18]   ✓ UNRATE
+[2026-08-04 20:06:18]   ✓ CPIAUCSL
+[2026-08-04 20:06:18]   ✓ FEDFUNDS
+[2026-08-04 20:06:18]   ✓ SP500
+[2026-08-04 20:06:18] ✓ Guardado: fred_economic_raw.csv (1304 registros)
+[2026-08-04 20:06:18] 
+======================================================================
+[2026-08-04 20:06:18] ✓ Resumen guardado: generate_summary.json
+[2026-08-04 20:06:18] ======================================================================
+[2026-08-04 20:06:18] ✓ GENERACIÓN COMPLETADA
+[2026-08-04 20:06:18] ======================================================================
+[2026-08-04 20:06:18] 
+Archivos generados:
+[2026-08-04 20:06:18]   1. tech_prices_raw.csv (6520 registros, 5 tickers)
+[2026-08-04 20:06:18]   2. energy_prices_raw.csv (5216 registros, 4 tickers)
+[2026-08-04 20:06:18]   3. fred_economic_raw.csv (1304 registros, 7 series)
+[2026-08-04 20:06:18]   4. generate_log.txt (este log)
+[2026-08-04 20:06:18]   5. generate_summary.json (resumen ejecutivo)
+[2026-08-04 20:06:18] 
+⚠ NOTA: Estos datos son SINTÉTICOS con propiedades estadísticas realistas
+[2026-08-04 20:06:18]    Se generaron para investigación/desarrollo de metodología
+[2026-08-04 20:06:18] 
+Próximo paso: EDA en 03_EDA_Exploratorio/
+[2026-08-05 14:58:05] ======================================================================
+[2026-08-05 14:58:05] GENERACIÓN DE DATOS SINTÉTICOS REALISTAS
+[2026-08-05 14:58:05] Fecha/Hora: 2026-08-05 14:58:05
+[2026-08-05 14:58:05] Período: 2021-08-06 a 2026-08-05
+[2026-08-05 14:58:05] ======================================================================
+[2026-08-05 14:58:05] Generando datos SECTOR TECNOLOGÍA...
+[2026-08-05 14:58:21] ======================================================================
+[2026-08-05 14:58:21] GENERACIÓN DE DATOS SINTÉTICOS REALISTAS
+[2026-08-05 14:58:21] Fecha/Hora: 2026-08-05 14:58:21
+[2026-08-05 14:58:21] Período: 2021-08-06 a 2026-08-05
+[2026-08-05 14:58:21] ======================================================================
+[2026-08-05 14:58:21] Generando datos SECTOR TECNOLOGÍA...
+[2026-08-05 14:58:21]   ✓ AAPL: 1304 registros
+[2026-08-05 14:58:21]   ✓ MSFT: 1304 registros
+[2026-08-05 14:58:21]   ✓ NVDA: 1304 registros
+[2026-08-05 14:58:21]   ✓ GOOGL: 1304 registros
+[2026-08-05 14:58:21]   ✓ TSLA: 1304 registros
+[2026-08-05 14:58:21] ✓ Guardado: tech_prices_raw.csv (6520 registros)
+[2026-08-05 14:58:21] Generando datos SECTOR ENERGÍA...
+[2026-08-05 14:58:21]   ✓ CVX: 1304 registros
+[2026-08-05 14:58:21]   ✓ COP: 1304 registros
+[2026-08-05 14:58:21]   ✓ XLE: 1304 registros
+[2026-08-05 14:58:21]   ✓ MPC: 1304 registros
+[2026-08-05 14:58:21] ✓ Guardado: energy_prices_raw.csv (5216 registros)
+[2026-08-05 14:58:21] Generando datos económicos FRED...
+[2026-08-05 14:58:21]   ✓ DCOILWTICO
+[2026-08-05 14:58:21]   ✓ DHHNGSP
+[2026-08-05 14:58:21]   ✓ VIXCLS
+[2026-08-05 14:58:21]   ✓ UNRATE
+[2026-08-05 14:58:21]   ✓ CPIAUCSL
+[2026-08-05 14:58:21]   ✓ FEDFUNDS
+[2026-08-05 14:58:21]   ✓ SP500
+[2026-08-05 14:58:21] ✓ Guardado: fred_economic_raw.csv (1304 registros)
+[2026-08-05 14:58:21] 
+======================================================================
+[2026-08-05 14:58:21] ✓ Resumen guardado: generate_summary.json
+[2026-08-05 14:58:21] ======================================================================
+[2026-08-05 14:58:21] ✓ GENERACIÓN COMPLETADA
+[2026-08-05 14:58:21] ======================================================================
+[2026-08-05 14:58:21] 
+Archivos generados:
+[2026-08-05 14:58:21]   1. tech_prices_raw.csv (6520 registros, 5 tickers)
+[2026-08-05 14:58:21]   2. energy_prices_raw.csv (5216 registros, 4 tickers)
+[2026-08-05 14:58:21]   3. fred_economic_raw.csv (1304 registros, 7 series)
+[2026-08-05 14:58:21]   4. generate_log.txt (este log)
+[2026-08-05 14:58:21]   5. generate_summary.json (resumen ejecutivo)
+[2026-08-05 14:58:21] 
+⚠ NOTA: Estos datos son SINTÉTICOS con propiedades estadísticas realistas
+[2026-08-05 14:58:21]    Se generaron para investigación/desarrollo de metodología
+[2026-08-05 14:58:21] 
+Próximo paso: EDA en 03_EDA_Exploratorio/
+[2026-08-05 18:43:33] ======================================================================
+[2026-08-05 18:43:33] GENERACIÓN DE DATOS SINTÉTICOS REALISTAS
+[2026-08-05 18:43:33] Fecha/Hora: 2026-08-05 18:43:33
+[2026-08-05 18:43:33] Período: 2021-08-06 a 2026-08-05
+[2026-08-05 18:43:33] ======================================================================
+[2026-08-05 18:43:33] Generando datos SECTOR TECNOLOGÍA...
+[2026-08-05 18:43:33]   ✓ AAPL: 1304 registros
+[2026-08-05 18:43:33]   ✓ MSFT: 1304 registros
+[2026-08-05 18:43:33]   ✓ NVDA: 1304 registros
+[2026-08-05 18:43:33]   ✓ GOOGL: 1304 registros
+[2026-08-05 18:43:33]   ✓ TSLA: 1304 registros
+[2026-08-05 18:43:33] ✓ Guardado: tech_prices_raw.csv (6520 registros)
+[2026-08-05 18:43:33] Generando datos SECTOR ENERGÍA...
+[2026-08-05 18:43:33]   ✓ CVX: 1304 registros
+[2026-08-05 18:43:33]   ✓ COP: 1304 registros
+[2026-08-05 18:43:33]   ✓ XLE: 1304 registros
+[2026-08-05 18:43:33]   ✓ MPC: 1304 registros
+[2026-08-05 18:43:33] ✓ Guardado: energy_prices_raw.csv (5216 registros)
+[2026-08-05 18:43:33] Generando datos económicos FRED...
+[2026-08-05 18:43:33]   ✓ DCOILWTICO
+[2026-08-05 18:43:33]   ✓ DHHNGSP
+[2026-08-05 18:43:33]   ✓ VIXCLS
+[2026-08-05 18:43:33]   ✓ UNRATE
+[2026-08-05 18:43:33]   ✓ CPIAUCSL
+[2026-08-05 18:43:33]   ✓ FEDFUNDS
+[2026-08-05 18:43:33]   ✓ SP500
+[2026-08-05 18:43:33] ✓ Guardado: fred_economic_raw.csv (1304 registros)
+[2026-08-05 18:43:33] 
+======================================================================
+[2026-08-05 18:43:33] ✓ Resumen guardado: generate_summary.json
+[2026-08-05 18:43:33] ======================================================================
+[2026-08-05 18:43:33] ✓ GENERACIÓN COMPLETADA
+[2026-08-05 18:43:33] ======================================================================
+[2026-08-05 18:43:33] 
+Archivos generados:
+[2026-08-05 18:43:33]   1. tech_prices_raw.csv (6520 registros, 5 tickers)
+[2026-08-05 18:43:33]   2. energy_prices_raw.csv (5216 registros, 4 tickers)
+[2026-08-05 18:43:33]   3. fred_economic_raw.csv (1304 registros, 7 series)
+[2026-08-05 18:43:33]   4. generate_log.txt (este log)
+[2026-08-05 18:43:33]   5. generate_summary.json (resumen ejecutivo)
+[2026-08-05 18:43:33] 
+⚠ NOTA: Estos datos son SINTÉTICOS con propiedades estadísticas realistas
+[2026-08-05 18:43:33]    Se generaron para investigación/desarrollo de metodología
+[2026-08-05 18:43:33] 
+Próximo paso: EDA en 03_EDA_Exploratorio/
+[2026-08-05 18:49:40] ======================================================================
+[2026-08-05 18:49:40] GENERACIÓN DE DATOS SINTÉTICOS REALISTAS
+[2026-08-05 18:49:40] Fecha/Hora: 2026-08-05 18:49:40
+[2026-08-05 18:49:40] Período: 2021-08-06 a 2026-08-05
+[2026-08-05 18:49:40] ======================================================================
+[2026-08-05 18:49:40] Generando datos económicos FRED...
+[2026-08-05 18:49:40]   ✓ DCOILWTICO
+[2026-08-05 18:49:40]   ✓ DHHNGSP
+[2026-08-05 18:49:40]   ✓ VIXCLS
+[2026-08-05 18:49:40]   ✓ UNRATE
+[2026-08-05 18:49:40]   ✓ CPIAUCSL
+[2026-08-05 18:49:40]   ✓ FEDFUNDS
+[2026-08-05 18:49:40]   ✓ SP500
+[2026-08-05 18:49:40] ✓ Guardado: fred_economic_raw.csv (1304 registros)
+[2026-08-05 18:49:40] Generando datos SECTOR TECNOLOGÍA...
+[2026-08-05 18:49:40]   ✓ AAPL: 1304 registros
+[2026-08-05 18:49:40]   ✓ MSFT: 1304 registros
+[2026-08-05 18:49:40]   ✓ NVDA: 1304 registros
+[2026-08-05 18:49:40]   ✓ GOOGL: 1304 registros
+[2026-08-05 18:49:40]   ✓ TSLA: 1304 registros
+[2026-08-05 18:49:40] ✓ Guardado: tech_prices_raw.csv (6520 registros)
+[2026-08-05 18:49:40] Generando datos SECTOR ENERGÍA...
+[2026-08-05 18:49:40]   ✓ CVX: 1304 registros
+[2026-08-05 18:49:40]   ✓ COP: 1304 registros
+[2026-08-05 18:49:40]   ✓ XLE: 1304 registros
+[2026-08-05 18:49:40]   ✓ MPC: 1304 registros
+[2026-08-05 18:49:40] ✓ Guardado: energy_prices_raw.csv (5216 registros)
+[2026-08-05 18:49:40] 
+======================================================================
+[2026-08-05 18:49:40] ✓ Resumen guardado: generate_summary.json
+[2026-08-05 18:49:40] ======================================================================
+[2026-08-05 18:49:40] ✓ GENERACIÓN COMPLETADA
+[2026-08-05 18:49:40] ======================================================================
+[2026-08-05 18:49:40] 
+Archivos generados:
+[2026-08-05 18:49:40]   1. tech_prices_raw.csv (6520 registros, 5 tickers)
+[2026-08-05 18:49:40]   2. energy_prices_raw.csv (5216 registros, 4 tickers)
+[2026-08-05 18:49:40]   3. fred_economic_raw.csv (1304 registros, 7 series)
+[2026-08-05 18:49:40]   4. generate_log.txt (este log)
+[2026-08-05 18:49:40]   5. generate_summary.json (resumen ejecutivo)
+[2026-08-05 18:49:40] 
+⚠ NOTA: Estos datos son SINTÉTICOS con propiedades estadísticas realistas
+[2026-08-05 18:49:40]    Se generaron para investigación/desarrollo de metodología
+[2026-08-05 18:49:40] 
+Próximo paso: EDA en 03_EDA_Exploratorio/

@@ -1,0 +1,43 @@
+[2026-08-05 20:47:18] ======================================================================
+[2026-08-05 20:47:18] PREPROCESSING - FEATURE ENGINEERING
+[2026-08-05 20:47:18] Fecha: 2026-08-05 20:47:18
+[2026-08-05 20:47:18] ======================================================================
+[2026-08-05 20:47:18] 
+1. CARGANDO DATOS...
+[2026-08-05 20:47:18] ✓ Tech: 6520 registros, 5 tickers
+[2026-08-05 20:47:18] ✓ Energy: 5216 registros, 4 tickers
+[2026-08-05 20:47:18] ✓ FRED: 1304 registros, 7 series
+[2026-08-05 20:47:18] 
+2. CALCULANDO FEATURES...
+[2026-08-05 20:47:18] ✓ Tech features: 6520 registros
+[2026-08-05 20:47:18] ✓ Energy features: 5216 registros
+[2026-08-05 20:47:18] 
+3. MERGING FRED DATA...
+[2026-08-05 20:47:18] ✓ FRED merged (7 series)
+[2026-08-05 20:47:18] 
+4. TRAIN/VAL/TEST SPLIT...
+[2026-08-05 20:47:18] ✓ Train: 8217 (70.0%)
+[2026-08-05 20:47:18] ✓ Val: 1764 (15.0%)
+[2026-08-05 20:47:18] ✓ Test: 1755 (15.0%)
+[2026-08-05 20:47:18] 
+5. GUARDANDO DATOS...
+[2026-08-05 20:47:19] ✓ tech_processed.csv
+[2026-08-05 20:47:19] ✓ energy_processed.csv
+[2026-08-05 20:47:19] ✓ train_set.csv
+[2026-08-05 20:47:19] ✓ val_set.csv
+[2026-08-05 20:47:19] ✓ test_set.csv
+[2026-08-05 20:47:19] 
+======================================================================
+[2026-08-05 20:47:19] ✓ PREPROCESSING COMPLETADO
+[2026-08-05 20:47:19] ======================================================================
+[2026-08-05 20:47:19] 
+FEATURES DISPONIBLES (todas conocidas al cierre del día t, sin fuga):
+[2026-08-05 20:47:19]   - Open, High, Low, Close, Volume, Return (día t, ya cerrado)
+[2026-08-05 20:47:19]   - SMA_20, SMA_50, Vol_20 (hasta día t inclusive)
+[2026-08-05 20:47:19]   - Close_Lag1, Close_Lag5, Return_Lag1, Return_Lag5
+[2026-08-05 20:47:19]   - Open_Lag1, High_Lag1, Low_Lag1, Volume_Lag1
+[2026-08-05 20:47:19]   - DCOILWTICO, VIXCLS, DHHNGSP, UNRATE, CPIAUCSL, FEDFUNDS, SP500
+[2026-08-05 20:47:19] 
+TARGET: Target_Return = ln(Close_{t+1}/Close_t) (retorno del día siguiente)
+[2026-08-05 20:47:19] 
+Datos listos para modelado en 05_Modelado/
