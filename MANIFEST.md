@@ -51,4 +51,4 @@ Prepared on: 2026-09-21
 
 ## Public Archive
 
-The package is archived on Zenodo at https://doi.org/10.5281/zenodo.22878106.
+The package is archived on Zenodo at https://doi.org/10.5281/zenodo.22880539.

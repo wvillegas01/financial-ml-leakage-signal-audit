@@ -79,4 +79,4 @@ All financial series in this repository are computer-generated benchmark data. A
 
 ## Citation
 
-If using this package, please cite the manuscript and the archived Zenodo record: https://doi.org/10.5281/zenodo.22878106. Citation metadata is provided in `CITATION.cff`.
+If using this package, please cite the manuscript and the archived Zenodo record: https://doi.org/10.5281/zenodo.22880539. Citation metadata is provided in `CITATION.cff`.
