@@ -35,18 +35,19 @@ Prepared on: 2026-09-21
 
 - Robustness checks, including neural multiseed summaries, moving-block bootstrap diagnostics, and ensemble weight sensitivity:
   - `Auditoria/10_Robustez_Minima/`
+  - `Auditoria/10_Robustez_Minima/moving_block_bootstrap_directional_accuracy_multiseed.csv`
 
 - Manuscript source, compiled manuscript, figures, and bibliography:
-  - `Frontiers_LaTeX_Templates/AI-Bussiness.tex`
-  - `Frontiers_LaTeX_Templates/AI-Bussiness.pdf`
-  - `Frontiers_LaTeX_Templates/test.bib`
+  - `manuscript/AI-Bussiness.tex`
+  - `manuscript/AI-Bussiness.pdf`
+  - `manuscript/test.bib`
   - `references.bib`
-  - `Frontiers_LaTeX_Templates/Fig1.jpg`
-  - `Frontiers_LaTeX_Templates/Fig2.jpg`
-  - `Frontiers_LaTeX_Templates/Fig3.jpg`
-  - `Frontiers_LaTeX_Templates/Fig4.jpg`
-  - `Frontiers_LaTeX_Templates/Fig5.jpg`
-  - `Frontiers_LaTeX_Templates/Fig6.jpg`
+  - `figures/Fig1.jpg`
+  - `figures/Fig2.jpg`
+  - `figures/Fig3.jpg`
+  - `figures/Fig4.jpg`
+  - `figures/Fig5.jpg`
+  - `figures/Fig6.jpg`
 
 ## Public Archive
 

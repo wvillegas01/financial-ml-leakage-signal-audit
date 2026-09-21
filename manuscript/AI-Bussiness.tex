@@ -16,7 +16,7 @@
 %\documentclass[utf8]{frontiersinFPHY_FAMS} % Vancouver Reference Style (Numbered) for articles in the journals "Frontiers in Physics" and "Frontiers in Applied Mathematics and Statistics" 
 
 %\setcitestyle{square} % for articles in the journals "Frontiers in Physics" and "Frontiers in Applied Mathematics and Statistics" 
-\usepackage{url,hyperref,lineno,microtype,subcaption}
+\usepackage{url,hyperref,lineno,microtype,subcaption,graphicx}
 \usepackage[onehalfspacing]{setspace}
 \usepackage{algorithm}
 \usepackage{algorithmic}
@@ -66,7 +66,7 @@
 \begin{abstract}
 
 \section{}
-\rev{This study audits a financial machine learning pipeline designed to detect information leakage, the absence of predictive structure, and the recovery of a known signal. The evaluation uses a controlled financial benchmark comprising 1,304 business-day dates, nine sector-specific asset series, and seven economic indicators generated through a prespecified GARCH-like conditional-variance process with controlled factor exposures. Three base models, a long short-term memory network (LSTM), a simplified attention model, and XGBoost, together with a fixed-weight ensemble are evaluated after correcting an initial configuration in which contemporaneous predictors were mechanically related to the target. All cross-model comparisons use a common sequential asset-date test subset (\(N=1{,}476\)). Under the leakage-free, null-signal condition, the predictive configurations yield \(R^2\) values between \(-0.0364\) and \(-0.0052\) and directional accuracies between \(48.85\%\) and \(49.86\%\). Moving-block bootstrap intervals for directional accuracy, based on blocks of consecutive test dates while retaining all assets within each sampled date, include both the balanced \(50\%\) reference and the observed majority-class rate for all evaluated models. Explicit sample accounting distinguishes the raw tabular test partition (\(N=1{,}755\) asset-date rows), the complete-case tabular sample used for XGBoost/SHAP analysis (\(N=1{,}746\)), and the sequential subset used for cross-model comparison. A 10-seed neural-network sensitivity analysis confirms that the LSTM and simplified attention results remain centered near null performance. In a separate controlled validation, a linear dependency is introduced between the standardized first difference of the Chicago Board Options Exchange Volatility Index (VIX) at day \(t\) and the target return at day \(t+1\). Across 10 seed-matched repetitions per signal-intensity level, mean \(R^2\) increases from \(-0.0028\) under the negative control to \(0.9031\) at the highest intensity. The normalized SHAP importance of the injected predictor increases monotonically from \(4.08\%\) to \(83.04\%\). The contribution is methodological: the study establishes a traceable procedure for diagnosing leakage, delimiting the scope of inference, and verifying predictive-signal recovery under known data-generating conditions.}
+\rev{This study audits a financial machine learning pipeline designed to detect information leakage, the absence of predictive structure, and the recovery of a known signal. The evaluation uses a controlled financial benchmark comprising 1,304 business-day dates, nine sector-specific asset series, and seven economic indicators generated through a prespecified GARCH-like conditional-variance process with controlled factor exposures. Three base models, a long short-term memory network (LSTM), a simplified attention model, and XGBoost, together with a fixed-weight ensemble are evaluated after correcting an initial configuration in which contemporaneous predictors were mechanically related to the target. All cross-model comparisons use a common sequential asset-date test subset (\(N=1{,}476\)). Under the leakage-free, null-signal condition, the evaluated configurations yield mean \(R^2\) values between \(-0.0072\) and \(0.0000\) and directional accuracies between \(49.53\%\) and \(49.95\%\). Moving-block bootstrap intervals for directional accuracy, based on blocks of consecutive test dates while retaining all assets within each sampled date, include both the balanced \(50\%\) reference and the observed majority-class rate for all evaluated models. Explicit sample accounting distinguishes the raw tabular test partition (\(N=1{,}755\) asset-date rows), the complete-case tabular sample used for XGBoost/SHAP analysis (\(N=1{,}746\)), and the sequential subset used for cross-model comparison. A 10-seed neural-network sensitivity analysis confirms that the LSTM and simplified attention results remain centered near null performance. In a separate controlled validation, a linear dependency is introduced between the standardized first difference of the Chicago Board Options Exchange Volatility Index (VIX) at day \(t\) and the target return at day \(t+1\). Across 10 seed-matched repetitions per signal-intensity level, mean \(R^2\) increases from \(-0.0028\) under the negative control to \(0.9031\) at the highest intensity. The normalized SHAP importance of the injected predictor increases monotonically from \(4.08\%\) to \(83.04\%\). The contribution is methodological: the study establishes a traceable procedure for diagnosing leakage, delimiting the scope of inference, and verifying predictive-signal recovery under known data-generating conditions.}
 
 
 \tiny
@@ -407,7 +407,7 @@ Here, \(y_i\) denotes the observed next-day logarithmic return, \(\hat{y}_i\) is
 
 Directional accuracy is calculated as the proportion of observations for which the predicted and observed returns have the same sign. Observations with an exactly zero predicted or observed return are treated according to the sign convention implemented in the evaluation code. Directional performance is assessed against two reference probabilities: the nominal balanced-direction benchmark of \(0.5\) and the observed majority-class rate in the common test subset. The latter is calculated as the larger proportion of positive or negative observed returns.
 
-For each model, two-sided binomial tests compare the number of correct directional predictions with each reference probability. Because asset-date outcomes may exhibit temporal and cross-sectional dependence, these tests are interpreted as nominal directional diagnostics rather than as dependence-robust inferential evidence. \rev{To address this limitation directly, a moving-block bootstrap is additionally implemented on the common sequential test subset~\citep{Kunsch1989}. The procedure resamples overlapping blocks of 10 consecutive test dates with replacement until the 164-date test horizon is reconstructed; for every sampled date, all available asset-level observations are retained together. This preserves the cross-sectional grouping of assets observed on the same date while also retaining local temporal dependence across adjacent dates. The block length is selected as a short two-week trading window that is long enough to preserve local volatility clustering in the test period while leaving enough overlapping blocks for resampling. For each model, 5,000 bootstrap samples are used to estimate 95\% intervals for directional accuracy and bootstrap diagnostics against the \(0.5\) and majority-class reference rates. Sensitivity checks with block lengths of 5 and 20 dates lead to the same substantive conclusion.}
+For each model, two-sided binomial tests compare the number of correct directional predictions with each reference probability. Because asset-date outcomes may exhibit temporal and cross-sectional dependence, these tests are interpreted as nominal directional diagnostics rather than as dependence-robust inferential evidence. \rev{To address this limitation directly, a moving-block bootstrap is additionally implemented on the common sequential test subset~\citep{Kunsch1989}. The procedure resamples overlapping blocks of 10 consecutive test dates with replacement until the 164-date test horizon is reconstructed; for every sampled date, all available asset-level observations are retained together. This preserves the cross-sectional grouping of assets observed on the same date while also retaining local temporal dependence across adjacent dates. The block length is selected as a short two-week trading window that is long enough to preserve local volatility clustering in the test period while leaving enough overlapping blocks for resampling. For LSTM and simplified attention, the bootstrap is applied separately within each of the 10 fixed seeds and the resulting bootstrap distributions are pooled; the reported directional accuracy is the mean across seeds. For XGBoost, the fixed ensemble, the equal ensemble, and the statistical baselines, the bootstrap is applied to the corresponding aligned prediction vector. Each neural row therefore uses 50,000 pooled bootstrap samples, and each non-neural row uses 5,000 bootstrap samples, to estimate 95\% intervals for directional accuracy and bootstrap diagnostics against the \(0.5\) and majority-class reference rates. Sensitivity checks with block lengths of 5 and 20 dates lead to the same substantive conclusion.}
 
 \rev{Three simple baselines are also evaluated on the identical \(N=1{,}476\) common sequential subset: a zero-return predictor, a training-set mean-return predictor, and a linear regression using Return\_Lag1 and Return\_Lag5 as predictors. The zero-return predictor corresponds to a random-walk price benchmark, \(\hat{P}_{t+1}=P_t\), and is included for squared-error comparison only because an exactly zero return forecast does not encode a positive or negative direction under the implemented sign convention. These baselines are intended as minimal statistical references rather than optimized forecasting models.}
 
@@ -558,9 +558,10 @@ As shown in Table~\ref{tab:model_performance}, none of the evaluated predictive 
 \begin{table}[h]
 	\caption{Comparative predictive performance on the common sequential test subset (\(N=1{,}476\)). \rev{Neural-model entries report mean \(\pm\) SD across 10 fixed seeds. The table is a pipeline diagnostic under fixed configurations, not a definitive architecture ranking; XGBoost uses validation-based early stopping, whereas the neural models retain their final epoch.}}
 	\label{tab:model_performance}
-	\setlength{\tabcolsep}{3pt}
+	\setlength{\tabcolsep}{6pt}
 	\centering
-	\begin{tabular}{p{135pt}p{70pt}p{70pt}p{75pt}p{85pt}}
+	\resizebox{\linewidth}{!}{%
+	\begin{tabular}{lllll}
 		\hline
 		\textbf{Model} &
 		\textbf{MAE} &
@@ -595,6 +596,7 @@ As shown in Table~\ref{tab:model_performance}, none of the evaluated predictive 
 		\hline
 		
 	\end{tabular}
+	}
 	\footnotesize
 \end{table}
 
@@ -623,11 +625,11 @@ As shown in Table~\ref{tab:model_performance}, none of the evaluated predictive 
 	\footnotesize
 \end{table}
 
-\rev{For the aligned prediction files used in the dependence-aware diagnostic, directional accuracy remains close to the nominal balanced reference. Two-sided binomial tests were conducted using \(p_0=0.5\) and the observed majority-class rate of \(50.14\%\). None of the models differs significantly from either reference level (all \(p>0.32\)). Because these binomial tests treat asset-date observations as independent, Table~\ref{tab:moving_block_bootstrap} reports moving-block bootstrap diagnostics based on 10-date blocks. All 95\% bootstrap intervals include both the balanced 50\% reference and the observed majority-class benchmark.}
+\rev{For the dependence-aware diagnostic, directional accuracy remains close to the nominal balanced reference. Two-sided binomial tests were conducted using \(p_0=0.5\) and the observed majority-class rate of \(50.14\%\). None of the evaluated configurations differs significantly from either reference level. Because these binomial tests treat asset-date observations as independent, Table~\ref{tab:moving_block_bootstrap} reports moving-block bootstrap diagnostics based on 10-date blocks. The LSTM and simplified-attention rows use pooled bootstrap distributions across the 10 fixed neural seeds, whereas the remaining rows use the corresponding aligned prediction vectors. All 95\% bootstrap intervals include both the balanced 50\% reference and the observed majority-class benchmark.}
 
 \begin{table}[h]
 	\color{red}
-\caption{Moving-block bootstrap diagnostics for directional accuracy on the common sequential test subset.}
+\caption{Moving-block bootstrap diagnostics for directional accuracy on the common sequential test subset. Neural rows pool the bootstrap distributions obtained separately across 10 fixed seeds.}
 	\label{tab:moving_block_bootstrap}
 	\setlength{\tabcolsep}{3pt}
 	\centering
@@ -640,13 +642,13 @@ As shown in Table~\ref{tab:model_performance}, none of the evaluated predictive 
 		\(\boldsymbol{p}\) \textbf{vs. 0.5} &
 		\(\boldsymbol{p}\) \textbf{vs. majority} \\
 		\hline
-		LSTM & 1,476 & 48.92\% & 45.66--51.22\% & 0.3320 & 0.2804 \\
-		Attention & 1,476 & 48.85\% & 45.39--52.03\% & 0.4748 & 0.4316 \\
-		XGBoost & 1,476 & 49.53\% & 46.00--52.17\% & 0.6312 & 0.5660 \\
-		Ensemble & 1,476 & 49.86\% & 46.14--53.05\% & 0.8340 & 0.7768 \\
-		Equal ensemble & 1,476 & 49.59\% & 45.94--52.71\% & 0.6908 & 0.6308 \\
-		Train-mean & 1,476 & 50.14\% & 46.61--52.78\% & 0.8816 & 0.8080 \\
-		Lagged OLS & 1,476 & 50.20\% & 47.43--52.85\% & 0.9476 & 1.0000 \\
+		LSTM, 10 seeds & 1,476 & 49.95\% & 46.68--52.98\% & 0.9445 & 0.8808 \\
+		Attention, 10 seeds & 1,476 & 49.94\% & 46.34--53.25\% & 0.9604 & 0.8993 \\
+		XGBoost & 1,476 & 49.53\% & 45.87--52.30\% & 0.6524 & 0.5924 \\
+		Ensemble & 1,476 & 49.86\% & 46.07--52.98\% & 0.8248 & 0.7716 \\
+		Equal ensemble & 1,476 & 49.59\% & 45.80--52.57\% & 0.7104 & 0.6508 \\
+		Train-mean & 1,476 & 50.14\% & 46.61--52.71\% & 0.8372 & 0.7772 \\
+		Lagged OLS & 1,476 & 50.20\% & 47.36--52.85\% & 0.9340 & 1.0000 \\
 		\hline
 	\end{tabular}
 	\footnotesize
@@ -1118,7 +1120,7 @@ Several limitations define the scope of these conclusions. The study uses a cont
 \section{Conclusion}
 \label{sec:conclusion}
 
-This study demonstrates that the apparent predictability of a financial machine learning pipeline can change fundamentally after target-related information leakage is removed. On the common sequential test subset (\(N=1{,}476\)), the LSTM, simplified attention model, XGBoost, and fixed-weight ensemble obtain \(R^2\) values between \(-0.0364\) and \(-0.0052\) and directional accuracies between \(48.85\%\) and \(49.86\%\). \rev{The robustness analysis shows that this null-signal interpretation is stable across 10 neural-network seeds and under moving-block bootstrap diagnostics that preserve both local date ordering and the cross-sectional grouping of assets observed on the same date. The simple training-mean and lagged-return baselines also remain close to zero explanatory power.} These results are consistent with the null-signal condition defined by the controlled benchmark.
+This study demonstrates that the apparent predictability of a financial machine learning pipeline can change fundamentally after target-related information leakage is removed. On the common sequential test subset (\(N=1{,}476\)), the evaluated configurations yield mean \(R^2\) values between \(-0.0072\) and \(0.0000\) and directional accuracies between \(49.53\%\) and \(49.95\%\). \rev{The robustness analysis shows that this null-signal interpretation is stable across 10 neural-network seeds and under moving-block bootstrap diagnostics that preserve both local date ordering and the cross-sectional grouping of assets observed on the same date. The simple training-mean and lagged-return baselines also remain close to zero explanatory power.} These results are consistent with the null-signal condition defined by the controlled benchmark.
 
 The principal contribution is an auditable distinction among leakage-induced performance, recovery of contemporaneous sector-factor structure, and recovery of a correctly aligned predictive dependency. Explicit sample accounting separates the raw tabular test partition (\(N=1{,}755\)), the complete-case tabular sample used for XGBoost/SHAP analysis (\(N=1{,}746\)), and the sequential subset used for cross-model comparison. In the positive-control experiment, XGBoost recovers the dependency introduced between the standardized first difference of VIX at day \(t\) and the target at day \(t+1\). Across 10 seed-matched repetitions per intensity level, mean \(R^2\) increases from \(-0.0028\) to \(0.9031\), while the normalized SHAP importance of the injected predictor increases from \(4.08\%\) to \(83.04\%\). The combined evidence shows that the pipeline can distinguish a spurious result and a null-signal condition from a deliberately supplied, horizon-aligned signal.
 
