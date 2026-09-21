@@ -48,6 +48,6 @@ Prepared on: 2026-09-21
   - `Frontiers_LaTeX_Templates/Fig5.jpg`
   - `Frontiers_LaTeX_Templates/Fig6.jpg`
 
-## Verification Note
+## Public Archive
 
-The package is intended for public deposit only after the manuscript and response-to-review changes are finalized. Once deposited, the manuscript's Data Availability Statement should replace the temporary predeposit wording with the permanent repository URL or DOI.
+The package is archived on Zenodo at https://doi.org/10.5281/zenodo.22878106.
