@@ -66,7 +66,7 @@
 \begin{abstract}
 
 \section{}
-\rev{This study audits a financial machine learning pipeline designed to detect information leakage, the absence of predictive structure, and the recovery of a known signal. The evaluation uses a controlled financial benchmark comprising 1,304 business-day dates, nine sector-specific asset series, and seven economic indicators generated through a prespecified GARCH-like conditional-variance process with controlled factor exposures. Three base models, a long short-term memory network (LSTM), a simplified attention model, and XGBoost, together with a fixed-weight ensemble are evaluated after correcting an initial configuration in which contemporaneous predictors were mechanically related to the target. All cross-model comparisons use a common sequential asset-date test subset (\(N=1{,}476\)). Under the leakage-free, null-signal condition, the evaluated configurations yield mean \(R^2\) values between \(-0.0072\) and \(0.0000\) and directional accuracies between \(49.53\%\) and \(49.95\%\). Moving-block bootstrap intervals for directional accuracy, based on blocks of consecutive test dates while retaining all assets within each sampled date, include both the balanced \(50\%\) reference and the observed majority-class rate for all evaluated models. Explicit sample accounting distinguishes the raw tabular test partition (\(N=1{,}755\) asset-date rows), the complete-case tabular sample used for XGBoost/SHAP analysis (\(N=1{,}746\)), and the sequential subset used for cross-model comparison. A 10-seed neural-network sensitivity analysis confirms that the LSTM and simplified attention results remain centered near null performance. In a separate controlled validation, a linear dependency is introduced between the standardized first difference of the Chicago Board Options Exchange Volatility Index (VIX) at day \(t\) and the target return at day \(t+1\). Across 10 seed-matched repetitions per signal-intensity level, mean \(R^2\) increases from \(-0.0028\) under the negative control to \(0.9031\) at the highest intensity. The normalized SHAP importance of the injected predictor increases monotonically from \(4.08\%\) to \(83.04\%\). The contribution is methodological: the study establishes a traceable procedure for diagnosing leakage, delimiting the scope of inference, and verifying predictive-signal recovery under known data-generating conditions.}
+\rev{This study audits a financial machine learning pipeline designed to detect information leakage, the absence of predictive structure, and the recovery of a known signal. The evaluation uses a controlled financial benchmark comprising 1,304 business-day dates, nine sector-specific asset series, and seven economic indicators generated through a prespecified GARCH-like conditional-variance process with controlled factor exposures. Three base models, a long short-term memory network (LSTM), a simplified attention model, and XGBoost, together with a fixed-weight ensemble are evaluated after correcting an initial configuration in which contemporaneous predictors were mechanically related to the target. All cross-model comparisons use a common sequential asset-date test subset (\(N=1{,}476\)). Under the leakage-free, null-signal condition, the evaluated configurations yield mean \(R^2\) values between \(-0.0052\) and \(0.0000\) and directional accuracies between \(49.53\%\) and \(49.95\%\). Moving-block bootstrap intervals for directional accuracy, based on blocks of consecutive test dates while retaining all assets within each sampled date, include both the balanced \(50\%\) reference and the observed majority-class rate for all evaluated models. Explicit sample accounting distinguishes the raw tabular test partition (\(N=1{,}755\) asset-date rows), the complete-case tabular sample used for XGBoost/SHAP analysis (\(N=1{,}746\)), and the sequential subset used for cross-model comparison. A 10-seed neural-network sensitivity analysis confirms that the LSTM and simplified attention results remain centered near null performance. In a separate controlled validation, a linear dependency is introduced between the standardized first difference of the Chicago Board Options Exchange Volatility Index (VIX) at day \(t\) and the target return at day \(t+1\). Across 10 seed-matched repetitions per signal-intensity level, mean \(R^2\) increases from \(-0.0028\) under the negative control to \(0.9031\) at the highest intensity. The normalized SHAP importance of the injected predictor increases monotonically from \(4.08\%\) to \(83.04\%\). The contribution is methodological: the study establishes a traceable procedure for diagnosing leakage, delimiting the scope of inference, and verifying predictive-signal recovery under known data-generating conditions.}
 
 
 \tiny
@@ -588,11 +588,11 @@ As shown in Table~\ref{tab:model_performance}, none of the evaluated predictive 
 		-0.0052 &
 		49.53\% \\
 		
-		Fixed ensemble (diagnostic) &
-		0.0423 &
-		0.0560 &
-		-0.0072 &
-		49.86\% \\
+		Fixed ensemble, 10 seeds &
+		\(0.0422\pm0.0001\) &
+		\(0.0558\pm0.0000\) &
+		\(-0.0012\pm0.0017\) &
+		\(49.78\%\pm0.80\%\) \\
 		\hline
 		
 	\end{tabular}
@@ -600,7 +600,7 @@ As shown in Table~\ref{tab:model_performance}, none of the evaluated predictive 
 	\footnotesize
 \end{table}
 
-\rev{Additional diagnostics are reported in Table~\ref{tab:null_signal_robustness}. The simple statistical baselines remain close to zero explanatory power: the training-mean baseline produces \(R^2\approx0\), and the lagged-return OLS baseline produces \(R^2=0.0004\). An equal-weight ensemble sensitivity check produces \(R^2=-0.0059\) and directional accuracy of \(49.59\%\), indicating that the null conclusion does not depend on the fixed 40/40/20 weighting scheme.}
+\rev{Additional diagnostics are reported in Table~\ref{tab:null_signal_robustness}. The simple statistical baselines remain close to zero explanatory power: the training-mean baseline produces \(R^2\approx0\), and the lagged-return OLS baseline produces \(R^2=0.0004\). An equal-weight ensemble sensitivity check across the same 10 seeds produces mean \(R^2=-0.0014\) and mean directional accuracy of \(49.80\%\), indicating that the null conclusion does not depend on the fixed 40/40/20 weighting scheme.}
 
 \begin{table}[h]
 	\color{red}
@@ -615,8 +615,8 @@ As shown in Table~\ref{tab:model_performance}, none of the evaluated predictive 
 		\(\boldsymbol{R^2}\) &
 		\textbf{Directional accuracy} \\
 		\hline
-		Fixed-weight ensemble & 1,476 & -0.0072 & 49.86\% \\
-		Equal-weight ensemble & 1,476 & -0.0059 & 49.59\% \\
+		Fixed-weight ensemble, 10 seeds & 1,476 & \(-0.0012\pm0.0017\) & \(49.78\%\pm0.80\%\) \\
+		Equal-weight ensemble, 10 seeds & 1,476 & \(-0.0014\pm0.0015\) & \(49.80\%\pm1.08\%\) \\
 		Zero-return baseline & 1,476 & -0.0001 & n/a \\
 		Training-mean baseline & 1,476 & -0.0000 & 50.14\% \\
 		Lagged-return OLS & 1,476 & 0.0004 & 50.20\% \\
@@ -625,11 +625,11 @@ As shown in Table~\ref{tab:model_performance}, none of the evaluated predictive 
 	\footnotesize
 \end{table}
 
-\rev{For the dependence-aware diagnostic, directional accuracy remains close to the nominal balanced reference. Two-sided binomial tests were conducted using \(p_0=0.5\) and the observed majority-class rate of \(50.14\%\). None of the evaluated configurations differs significantly from either reference level. Because these binomial tests treat asset-date observations as independent, Table~\ref{tab:moving_block_bootstrap} reports moving-block bootstrap diagnostics based on 10-date blocks. The LSTM and simplified-attention rows use pooled bootstrap distributions across the 10 fixed neural seeds, whereas the remaining rows use the corresponding aligned prediction vectors. All 95\% bootstrap intervals include both the balanced 50\% reference and the observed majority-class benchmark.}
+\rev{For the dependence-aware diagnostic, directional accuracy remains close to the nominal balanced reference. Two-sided binomial tests were conducted using \(p_0=0.5\) and the observed majority-class rate of \(50.14\%\). None of the evaluated configurations differs significantly from either reference level. Because these binomial tests treat asset-date observations as independent, Table~\ref{tab:moving_block_bootstrap} reports moving-block bootstrap diagnostics based on 10-date blocks. The neural and ensemble rows use pooled bootstrap distributions across the 10 fixed seeds, whereas the deterministic benchmark rows use the corresponding aligned prediction vectors. All 95\% bootstrap intervals include both the balanced 50\% reference and the observed majority-class benchmark.}
 
 \begin{table}[h]
 	\color{red}
-\caption{Moving-block bootstrap diagnostics for directional accuracy on the common sequential test subset. Neural rows pool the bootstrap distributions obtained separately across 10 fixed seeds.}
+\caption{Moving-block bootstrap diagnostics for directional accuracy on the common sequential test subset. Neural and ensemble rows pool the bootstrap distributions obtained separately across 10 fixed seeds.}
 	\label{tab:moving_block_bootstrap}
 	\setlength{\tabcolsep}{3pt}
 	\centering
@@ -644,28 +644,30 @@ As shown in Table~\ref{tab:model_performance}, none of the evaluated predictive 
 		\hline
 		LSTM, 10 seeds & 1,476 & 49.95\% & 46.68--52.98\% & 0.9445 & 0.8808 \\
 		Attention, 10 seeds & 1,476 & 49.94\% & 46.34--53.25\% & 0.9604 & 0.8993 \\
-		XGBoost & 1,476 & 49.53\% & 45.87--52.30\% & 0.6524 & 0.5924 \\
-		Ensemble & 1,476 & 49.86\% & 46.07--52.98\% & 0.8248 & 0.7716 \\
-		Equal ensemble & 1,476 & 49.59\% & 45.80--52.57\% & 0.7104 & 0.6508 \\
-		Train-mean & 1,476 & 50.14\% & 46.61--52.71\% & 0.8372 & 0.7772 \\
-		Lagged OLS & 1,476 & 50.20\% & 47.36--52.85\% & 0.9340 & 1.0000 \\
+		Ensemble, 10 seeds & 1,476 & 49.78\% & 46.14--52.78\% & 0.8139 & 0.7525 \\
+		Equal w., 10 seeds & 1,476 & 49.80\% & 45.66--52.98\% & 0.8265 & 0.7672 \\
+		XGBoost & 1,476 & 49.53\% & 45.94--52.24\% & 0.6408 & 0.5856 \\
+		Train-mean & 1,476 & 50.14\% & 46.68--52.57\% & 0.8508 & 0.7816 \\
+		Lagged OLS & 1,476 & 50.20\% & 47.36--52.85\% & 0.9628 & 1.0000 \\
 		\hline
 	\end{tabular}
 	\footnotesize
 \end{table}
 
-The ensemble obtains an \(R^2\) of \(-0.0072\) and a directional accuracy of \(49.86\%\), without a measurable improvement over the evaluated reference levels. Its numerically higher directional accuracy should not be interpreted as evidence of superiority over the constituent models. Paired tests comparing model-specific losses or prediction errors were not performed, and the differences in Table~\ref{tab:model_performance} are small. The defensible conclusion is therefore restricted to the evaluated experimental condition: under the selected chronological split, fixed hyperparameters, and common target subset, none of the four models provides evidence of predictive performance beyond the nominal directional benchmarks.
+The fixed-weight ensemble obtains a mean \(R^2\) of \(-0.0012\) and a mean directional accuracy of \(49.78\%\) across the 10 seeded neural runs, without a measurable improvement over the evaluated reference levels. Its performance should not be interpreted as evidence of superiority over the constituent models. Paired tests comparing model-specific losses or prediction errors were not performed, and the differences in Table~\ref{tab:model_performance} are small. The defensible conclusion is therefore restricted to the evaluated experimental condition: under the selected chronological split, fixed hyperparameters, and common target subset, none of the four models provides evidence of predictive performance beyond the nominal directional benchmarks.
 
 This result contrasts with the preliminary leakage-contaminated configuration. In that configuration, using the contemporaneous price level as the target together with predictors mechanically related to it produced an XGBoost \(R^2\) of approximately \(0.96\). That value is not directly comparable with the corrected results because it corresponds to a different target definition and an invalid information set. The SHAP audit identified a concentrated dependence on target-related predictors, while the temporal audit established that those dependencies were not legitimate for forward prediction. After reformulating the target as the next-day logarithmic return and restricting the information set to predictors available by day \(t\), the apparent performance disappeared. This contrast supports the leakage diagnosis rather than a claim that the corrected models lost a valid economic signal.
 
-Table~\ref{tab:absolute_error_distribution} describes the distribution of absolute prediction errors on the same common sequential subset. Mean absolute errors range from 0.0422 to 0.0431, while median absolute errors range from 0.0323 to 0.0331. The 75th percentiles and maximum absolute errors are also similar across architectures. XGBoost records the lowest mean absolute error but the highest maximum absolute error, illustrating that model rankings may depend on the selected error summary.
+Table~\ref{tab:absolute_error_distribution} describes the distribution of absolute prediction errors on the same common sequential subset. Neural and ensemble entries are summarized across the same 10 seeded runs used in the main comparison, while XGBoost is deterministic under the fixed random state used in the experiment. Mean absolute errors are approximately \(0.0422\) for all evaluated configurations, and median absolute errors remain close to \(0.0323\). The 75th percentiles and maximum absolute errors are also similar across architectures, illustrating that model rankings may depend on the selected error summary.
 
 \begin{table}[h]
-	\caption{Distribution of absolute prediction errors on the common sequential test subset (\(N=1{,}476\)).}
+	\color{red}
+	\caption{Distribution of absolute prediction errors on the common sequential test subset (\(N=1{,}476\)). Neural and ensemble entries report mean \(\pm\) SD across 10 fixed seeds; XGBoost is reported from the fitted deterministic tree model.}
 	\label{tab:absolute_error_distribution}
-	\setlength{\tabcolsep}{3pt}
+	\setlength{\tabcolsep}{5pt}
 	\centering
-	\begin{tabular}{p{115pt}p{48pt}p{115pt}p{50pt}p{50pt}}
+	\resizebox{\linewidth}{!}{%
+	\begin{tabular}{lllll}
 		\hline
 		\textbf{Statistic} &
 		\textbf{LSTM} &
@@ -675,37 +677,38 @@ Table~\ref{tab:absolute_error_distribution} describes the distribution of absolu
 		\hline
 		
 		Mean &
-		0.0424 &
-		0.0431 &
+		\(0.0422\pm0.0001\) &
+		\(0.0422\pm0.0002\) &
 		0.0422 &
-		0.0423 \\
+		\(0.0422\pm0.0001\) \\
 		
 		Standard deviation &
-		0.0365 &
-		0.0370 &
+		\(0.0365\pm0.0001\) &
+		\(0.0366\pm0.0001\) &
 		0.0367 &
-		0.0367 \\
+		\(0.0366\pm0.0001\) \\
 		
 		Maximum &
-		0.2140 &
-		0.2216 &
+		\(0.2202\pm0.0055\) &
+		\(0.2233\pm0.0058\) &
 		0.2258 &
-		0.2186 \\
+		\(0.2221\pm0.0046\) \\
 		
 		Median &
+		\(0.0322\pm0.0001\) &
+		\(0.0323\pm0.0003\) &
 		0.0323 &
-		0.0331 &
-		0.0323 &
-		0.0327 \\
+		\(0.0323\pm0.0002\) \\
 		
 		75th percentile &
-		0.0594 &
-		0.0601 &
+		\(0.0587\pm0.0006\) &
+		\(0.0589\pm0.0007\) &
 		0.0595 &
-		0.0592 \\
+		\(0.0587\pm0.0005\) \\
 		\hline
 		
 	\end{tabular}
+	}
 	\footnotesize
 \end{table}
 
@@ -830,14 +833,16 @@ The controlled benchmark contains prespecified contemporaneous relationships bet
 
 \rev{The strong VIX--technology and WTI--energy relationships occur contemporaneously by construction. Their recovery shows that the analytical procedure detects the prespecified sector-factor structure, but it does not demonstrate that either factor predicts returns at the \(t\rightarrow t+1\) horizon.}
 
-Sector-specific predictive results are reported in Table~\ref{tab:sector_model_performance}. The technology subset contains 820 sequential observations, whereas the energy subset contains 656, jointly reproducing the common comparison sample of \(N=1{,}476\). Across the technology sector, \(R^2\) ranges from \(-0.0442\) for the simplified attention model to \(0.0035\) for the LSTM. Directional accuracy ranges from \(48.54\%\) to \(51.46\%\). In the energy sector, \(R^2\) ranges from \(-0.0299\) for the LSTM to \(0.0079\) for XGBoost, while directional accuracy ranges from \(46.04\%\) to \(50.76\%\).
+Sector-specific predictive results are reported in Table~\ref{tab:sector_model_performance}. The technology subset contains 820 sequential observations, whereas the energy subset contains 656, jointly reproducing the common comparison sample of \(N=1{,}476\). Neural and ensemble values are summarized across the 10 fixed seeds. Across the technology sector, mean \(R^2\) values range from \(-0.0106\) for XGBoost to \(0.0015\) for the LSTM, and directional accuracy remains close to the nominal reference. In the energy sector, mean \(R^2\) values range from \(-0.0060\) for the simplified attention model to \(0.0079\) for XGBoost, while directional accuracy remains between \(49.45\%\) and \(50.76\%\).
 
 \begin{table}[h]
-	\caption{Predictive performance by sector on the common sequential test subset. \rev{These sector-level values are diagnostic summaries under fixed model configurations and should not be interpreted as an optimized architecture ranking.}}
+	\color{red}
+	\caption{Predictive performance by sector on the common sequential test subset. Neural and ensemble entries report mean \(\pm\) SD across 10 fixed seeds; XGBoost is reported from the fitted deterministic tree model. \rev{These sector-level values are diagnostic summaries under fixed model configurations and should not be interpreted as an optimized architecture ranking.}}
 	\label{tab:sector_model_performance}
-	\setlength{\tabcolsep}{3pt}
+	\setlength{\tabcolsep}{4pt}
 	\centering
-	\begin{tabular}{p{65pt}p{92pt}p{35pt}p{45pt}p{45pt}p{45pt}p{105pt}}
+	\resizebox{\linewidth}{!}{%
+	\begin{tabular}{lllllll}
 		\hline
 		\textbf{Sector} &
 		\textbf{Model} &
@@ -851,18 +856,18 @@ Sector-specific predictive results are reported in Table~\ref{tab:sector_model_p
 		Technology &
 		LSTM &
 		820 &
-		0.0475 &
-		0.0632 &
-		0.0035 &
-		51.22\% \\
+		\(0.0476\pm0.0001\) &
+		\(0.0633\pm0.0002\) &
+		\(0.0015\pm0.0053\) &
+		\(50.34\%\pm1.95\%\) \\
 		
 		Technology &
 		Simplified attention &
 		820 &
-		0.0489 &
-		0.0647 &
-		-0.0442 &
-		49.51\% \\
+		\(0.0477\pm0.0003\) &
+		\(0.0634\pm0.0003\) &
+		\(-0.0040\pm0.0101\) &
+		\(50.05\%\pm1.25\%\) \\
 		
 		Technology &
 		XGBoost &
@@ -875,27 +880,27 @@ Sector-specific predictive results are reported in Table~\ref{tab:sector_model_p
 		Technology &
 		Ensemble &
 		820 &
-		0.0476 &
-		0.0635 &
-		-0.0052 &
-		51.46\% \\
+		\(0.0476\pm0.0001\) &
+		\(0.0634\pm0.0001\) &
+		\(-0.0015\pm0.0034\) &
+		\(49.63\%\pm1.89\%\) \\
 		\hline
 		
 		Energy &
 		LSTM &
 		656 &
-		0.0359 &
-		0.0452 &
-		-0.0299 &
-		46.04\% \\
+		\(0.0354\pm0.0002\) &
+		\(0.0446\pm0.0001\) &
+		\(-0.0040\pm0.0050\) &
+		\(49.45\%\pm2.23\%\) \\
 		
 		Energy &
 		Simplified attention &
 		656 &
-		0.0358 &
-		0.0449 &
-		-0.0171 &
-		48.02\% \\
+		\(0.0354\pm0.0002\) &
+		\(0.0447\pm0.0002\) &
+		\(-0.0060\pm0.0073\) &
+		\(49.80\%\pm1.58\%\) \\
 		
 		Energy &
 		XGBoost &
@@ -908,17 +913,18 @@ Sector-specific predictive results are reported in Table~\ref{tab:sector_model_p
 		Energy &
 		Ensemble &
 		656 &
-		0.0357 &
-		0.0448 &
-		-0.0127 &
-		47.87\% \\
+		\(0.0353\pm0.0001\) &
+		\(0.0446\pm0.0001\) &
+		\(-0.0010\pm0.0039\) &
+		\(49.97\%\pm1.68\%\) \\
 		\hline
 		
 	\end{tabular}
+	}
 	\footnotesize
 \end{table}
 
-The small positive \(R^2\) values obtained by the technology LSTM and energy XGBoost are close to zero and do not constitute evidence of a practically meaningful predictive advantage. Similarly, directional accuracies slightly above \(50\%\) should not be interpreted as statistically significant because sector-specific directional tests are not reported. The sector-level results are therefore consistent with the aggregate finding of no detectable predictive advantage, but they do not independently prove equivalence to chance.
+The small positive mean \(R^2\) values obtained by the technology LSTM and energy XGBoost are close to zero and do not constitute evidence of a practically meaningful predictive advantage. Similarly, directional accuracies slightly above \(50\%\) should not be interpreted as statistically significant because sector-specific directional tests are not reported. The sector-level results are therefore consistent with the aggregate finding of no detectable predictive advantage, but they do not independently prove equivalence to chance.
 
 The lower MAE and RMSE values observed for the energy sector should also not be interpreted as evidence that energy returns are easier to predict. Scale-dependent errors are affected by the dispersion of the target variable, and the energy series exhibit a different return scale from the technology series. Comparisons of MAE and RMSE are most informative among models evaluated within the same sector rather than directly between sectors.
 
@@ -1120,7 +1126,7 @@ Several limitations define the scope of these conclusions. The study uses a cont
 \section{Conclusion}
 \label{sec:conclusion}
 
-This study demonstrates that the apparent predictability of a financial machine learning pipeline can change fundamentally after target-related information leakage is removed. On the common sequential test subset (\(N=1{,}476\)), the evaluated configurations yield mean \(R^2\) values between \(-0.0072\) and \(0.0000\) and directional accuracies between \(49.53\%\) and \(49.95\%\). \rev{The robustness analysis shows that this null-signal interpretation is stable across 10 neural-network seeds and under moving-block bootstrap diagnostics that preserve both local date ordering and the cross-sectional grouping of assets observed on the same date. The simple training-mean and lagged-return baselines also remain close to zero explanatory power.} These results are consistent with the null-signal condition defined by the controlled benchmark.
+This study demonstrates that the apparent predictability of a financial machine learning pipeline can change fundamentally after target-related information leakage is removed. On the common sequential test subset (\(N=1{,}476\)), the evaluated configurations yield mean \(R^2\) values between \(-0.0052\) and \(0.0000\) and directional accuracies between \(49.53\%\) and \(49.95\%\). \rev{The robustness analysis shows that this null-signal interpretation is stable across 10 neural-network seeds and under moving-block bootstrap diagnostics that preserve both local date ordering and the cross-sectional grouping of assets observed on the same date. The simple training-mean and lagged-return baselines also remain close to zero explanatory power.} These results are consistent with the null-signal condition defined by the controlled benchmark.
 
 The principal contribution is an auditable distinction among leakage-induced performance, recovery of contemporaneous sector-factor structure, and recovery of a correctly aligned predictive dependency. Explicit sample accounting separates the raw tabular test partition (\(N=1{,}755\)), the complete-case tabular sample used for XGBoost/SHAP analysis (\(N=1{,}746\)), and the sequential subset used for cross-model comparison. In the positive-control experiment, XGBoost recovers the dependency introduced between the standardized first difference of VIX at day \(t\) and the target at day \(t+1\). Across 10 seed-matched repetitions per intensity level, mean \(R^2\) increases from \(-0.0028\) to \(0.9031\), while the normalized SHAP importance of the injected predictor increases from \(4.08\%\) to \(83.04\%\). The combined evidence shows that the pipeline can distinguish a spurious result and a null-signal condition from a deliberately supplied, horizon-aligned signal.
 

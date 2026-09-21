@@ -35,7 +35,10 @@ Prepared on: 2026-09-21
 
 - Robustness checks, including neural multiseed summaries, moving-block bootstrap diagnostics, and ensemble weight sensitivity:
   - `Auditoria/10_Robustez_Minima/`
+  - `Auditoria/10_Robustez_Minima/absolute_error_distribution_multiseed.csv`
   - `Auditoria/10_Robustez_Minima/moving_block_bootstrap_directional_accuracy_multiseed.csv`
+  - `Auditoria/10_Robustez_Minima/null_signal_global_metrics_multiseed.csv`
+  - `Auditoria/10_Robustez_Minima/sector_performance_multiseed.csv`
 
 - Manuscript source, compiled manuscript, figures, and bibliography:
   - `manuscript/AI-Bussiness.tex`
